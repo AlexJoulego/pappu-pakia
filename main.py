@@ -18,6 +18,7 @@ gravity = 0.2
 
 pappu = Pappu()
 
+
 # velocity
 vx = 0
 vy = 0
