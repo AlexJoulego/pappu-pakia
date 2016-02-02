@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, forks
 from pygame.locals import *
 
 # Define colors
@@ -11,7 +11,7 @@ BLUE = (0, 0, 255)
 pygame.init()
 
 # Set the width and height of the screen
-SCREEN_WIDTH = 640
+SCREEN_WIDTH = 740
 SCREEN_HEIGHT = 480
 screen_size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(screen_size)
@@ -88,6 +88,8 @@ while not done:
 
 	# --- Drawing code
 	pappu.draw(screen)
+	# Draw forks
+	forks.createRandomForks(screen, 6)
 	
 	# --- Update the screen
 	pygame.display.flip()
