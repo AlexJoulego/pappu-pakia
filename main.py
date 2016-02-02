@@ -15,11 +15,6 @@ pygame.display.set_caption("Pappu Pakia")
 fork_count = 6
 gravity = 0.2
 
-# Draw awesome backgrounds
-clouds = pygame.image.load("clouds.png").convert_alpha()
-back_trees = pygame.image.load("back_trees.png").convert_alpha()
-front_trees = pygame.image.load("front_trees.png").convert_alpha()
-ground = pygame.image.load("ground.png").convert_alpha()
 
 class Pappu(object):
 	def __init__(self):
@@ -53,15 +48,19 @@ v_cap = 4
 ax = 0
 ay = 0
 
-# Draw awesome backgrounds
-# Backgrounds have been made for 1000x500 dimensions
-def drawBackgrounds(canvas):
-	# Draw linear gradient for real/pure BG (sky/water)	
-	utils.fill_gradient(screen, GRADIENT_START, GRADIENT_STOP)	
-	canvas.blit(clouds, (0, 0))
-	canvas.blit(back_trees, (0, 0))
-	canvas.blit(front_trees, (0, 0))
-	canvas.blit(ground, (0, 0))
+clouds = pygame.image.load("clouds.png").convert_alpha()
+back_trees = pygame.image.load("back_trees.png").convert_alpha()
+front_trees = pygame.image.load("front_trees.png").convert_alpha()
+ground = pygame.image.load("ground.png").convert_alpha()
+
+cloud_bg_move_speed = 1
+cloud_bg_vx = 0
+backtree_bg_move_speed = 2
+backtree_bg_vx = 0
+fronttree_bg_move_speed = 3
+fronttree_bg_vx = 0
+ground_bg_move_speed = 4
+ground_bg_vx = 0
 
 
 # Loop until the user clicks the close button
@@ -103,8 +102,42 @@ while not done:
 	pappu.y += vy
 
 	# --- Screen-clearing code
-	screen.fill(WHITE)	
-	drawBackgrounds(screen)
+	screen.fill(WHITE)
+	
+	# --- Draw animated BACKGROUND
+	utils.fill_gradient(screen, GRADIENT_START, GRADIENT_STOP)
+	# Clouds
+	if -cloud_bg_vx >= SCREEN_WIDTH:
+		cloud_bg_vx = 0
+	cloud_bg_vx -= cloud_bg_move_speed
+
+	screen.blit(clouds, (cloud_bg_vx, 0))	
+	screen.blit(clouds, (SCREEN_WIDTH + cloud_bg_vx, 0))
+
+	# Black Trees
+	if -backtree_bg_vx >= SCREEN_WIDTH:
+		backtree_bg_vx = 0
+	backtree_bg_vx -= backtree_bg_move_speed
+
+	screen.blit(back_trees, (backtree_bg_vx, 0))
+	screen.blit(back_trees, (SCREEN_WIDTH + backtree_bg_vx, 0))
+
+	# Front Trees
+	if -fronttree_bg_vx >= SCREEN_WIDTH:
+		fronttree_bg_vx = 0
+	fronttree_bg_vx -= fronttree_bg_move_speed
+
+	screen.blit(front_trees, (fronttree_bg_vx, 0))
+	screen.blit(front_trees, (SCREEN_WIDTH + fronttree_bg_vx, 0))
+
+	# Ground
+	if -ground_bg_vx >= SCREEN_WIDTH:
+		ground_bg_vx = 0
+	ground_bg_vx -= ground_bg_move_speed
+
+	screen.blit(ground, (ground_bg_vx, 0))
+	screen.blit(ground, (SCREEN_WIDTH + ground_bg_vx, 0))
+
 
 	# --- Drawing code
 	pappu.draw(screen)
