@@ -138,9 +138,9 @@ while not done:
 		pappu.flying_up = True
 	pappu.draw(screen)
 	# Draw forks
-	forks.drawForks(screen, 6)
+	# forks.drawForks(screen, 6)
 	# Draw branches
-	branches.drawBranches(screen, 4)
+	# branches.drawBranches(screen, 4)
 	
 	# --- Update the screen
 	pygame.display.flip()

@@ -22,9 +22,14 @@ class Pappu(pygame.sprite.Sprite):
 
 		self.flying_up = False
 
+		self.change_per_frame = 5
+
 		for frame in range(0, self.sprite_num, self.sprite_w):
 			shift = (self.rect.left + frame, self.rect.top, self.rect.width // 6, self.rect.height)
-			self.sprite.append(self.image.subsurface(shift))
+			for i in range(self.change_per_frame):
+				self.sprite.append(self.image.subsurface(shift))
+		self.max_fly_frame_count = len(self.sprite)
+
 
 	def draw(self, canvas):
 				
