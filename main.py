@@ -67,6 +67,12 @@ while not done:
 			ax = 0
 			ay = 0
 
+		# Game play on mouse clicks, too!
+		if event.type == MOUSEBUTTONDOWN:
+			ay = -0.4
+		if event.type == MOUSEBUTTONUP:
+			ay = 0
+
 	# --- Game logic
 	# Game over on reaching any boundary
 	if pappu.hasReachedBoundary(SCREEN_WIDTH, SCREEN_HEIGHT):
