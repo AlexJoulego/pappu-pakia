@@ -71,6 +71,17 @@ while not done:
 			ay = 0
 
 	# --- Game logic
+	# Game over on reaching ground
+	if pappu.y >= SCREEN_HEIGHT:
+		done = True
+
+	# Velocity
+	if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
+		vy += ay
+		vy += gravity
+
+	pappu.x += vx
+	pappu.y += vy
 
 	# --- Screen-clearing code
 	screen.fill(WHITE)
