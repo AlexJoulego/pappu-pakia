@@ -1,5 +1,5 @@
 import pygame
-import forks, utils
+import forks, branches, utils
 from pygame.locals import *
 from configs import *
 
@@ -110,6 +110,8 @@ while not done:
 	pappu.draw(screen)
 	# Draw forks
 	forks.drawForks(screen, 6)
+	# Draw branches
+	branches.drawBranches(screen, 4)
 	
 	# --- Update the screen
 	pygame.display.flip()
