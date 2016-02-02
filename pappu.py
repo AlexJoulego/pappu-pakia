@@ -1,4 +1,5 @@
 import pygame
+import utils
 from configs import *
 
 class Pappu(pygame.sprite.Sprite):
@@ -10,13 +11,34 @@ class Pappu(pygame.sprite.Sprite):
 		self.w = 50
 		self.h = 50
 
-		self.sprite = {}
+		self.sprite = []
+		self.sprite_num = 288
+		self.sprite_w = 48
 		self.image = pygame.image.load("pappu.png").convert_alpha()
 		self.rect = self.image.get_rect()
 
+		self.fly_frame_count = 0
+		self.max_fly_frame_count = 6
+
+		self.flying_up = False
+
+		for frame in range(0, self.sprite_num, self.sprite_w):
+			shift = (self.rect.left + frame, self.rect.top, self.rect.width // 6, self.rect.height)
+			self.sprite.append(self.image.subsurface(shift))
+
 	def draw(self, canvas):
-		# pygame.Surface.fill(canvas, RED, [self.x, self.y, self.w, self.h])
-		canvas.blit(self.image, (self.x, self.y), self.rect)
+				
+		# print(self.flying_up)
+		if self.flying_up:
+			self.fly_frame_count += 1
+			if self.fly_frame_count == self.max_fly_frame_count:
+				self.fly_frame_count = 0
+			canvas.blit(self.sprite[self.fly_frame_count], (self.x, self.y))
+			# print(self.fly_frame_count)
+		else:
+			canvas.blit(self.sprite[0], (self.x, self.y))
+		self.flying_up = False
+
 
 	def hasReachedBoundary(self, canvas_width, canvas_height):
 		ctop = (self.y < 0)

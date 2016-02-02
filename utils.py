@@ -43,3 +43,28 @@ def fill_gradient(surface, color, gradient, rect=None, vertical=True, forward=Tr
 				min(max(a[1] + (rate[1] * (col-x1)), 0), 255),
 				min(max(a[2] + (rate[2] * (col-x1)), 0), 255))
 			fn_line(surface, color, (col, y1), (col, y2))
+
+def sprite_sheet(size, file, pos=(0,0)):
+	len_sprt_x, len_sprt_y = size
+	sprt_rect_x, sprt_rect_y = pos
+
+	# sheet = pygame.image.load(file).convert_alpha()
+	sheet = file
+	sheet_rect = sheet.get_rect()
+	sprites = []
+	print(sheet_rect.height, sheet_rect.width)
+
+	for i in range(0, sheet_rect.height-len_sprt_y, size[1]):
+		print("row")
+		for i in range(0, sheet_rect.width-len_sprt_x, size[0]):
+			print("column")
+			sheet.set_clip(pygame.Rect(sprt_rect_x, sprt_rect_y, len_sprt_x, len_sprt_y))
+			sprite = sheet.subsurface(sheet.get_clip())
+			sprites.append(sprite)
+			sprt_rect_x += len_sprt_x
+
+		sprt_rect_y += len_sprt_y
+		sprt_rect_x = 0
+
+	print(sprites)
+	return sprites

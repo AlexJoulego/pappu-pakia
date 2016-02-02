@@ -28,6 +28,9 @@ v_cap = 4
 ax = 0
 ay = 0
 
+# flying up?
+flying_up = False
+
 clouds = pygame.image.load("clouds.png").convert_alpha()
 back_trees = pygame.image.load("back_trees.png").convert_alpha()
 front_trees = pygame.image.load("front_trees.png").convert_alpha()
@@ -62,17 +65,22 @@ while not done:
 				ax = 0.1
 			if event.key == K_UP:
 				ay = -0.4
+				flying_up = True
 			if event.key == K_DOWN:
 				ay = 0.1
 		if event.type == KEYUP:
 			ax = 0
 			ay = 0
+			flying_up = False
 
 		# Game play on mouse clicks, too!
 		if event.type == MOUSEBUTTONDOWN:
 			ay = -0.4
+			flying_up = True
 		if event.type == MOUSEBUTTONUP:
+			ax = 0
 			ay = 0
+			flying_up = False
 
 	# --- Game logic
 	# Game over on reaching any boundary
@@ -126,6 +134,8 @@ while not done:
 
 
 	# --- Drawing code
+	if flying_up:
+		pappu.flying_up = True
 	pappu.draw(screen)
 	# Draw forks
 	forks.drawForks(screen, 6)
