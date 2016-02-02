@@ -1,6 +1,8 @@
-import pygame
+import pygame, random
+from configs import *
 
 forks = []
+edges = ['top', 'bottom']
 
 class Fork(object):
 	def __init__(self):
@@ -8,20 +10,33 @@ class Fork(object):
 		self.y = 0
 		self.w = 0
 		self.h = 0
-		self.color = (0, 0, 255)
+		self.edge = 'bottom'
+		self.color = BLUE
+
+def getRandomForkPos():
+	pos = {}
+
+	if len(forks) > 0 and forks[len(forks)-1] is not None:
+		pos['x'] = forks[len(forks)-1].x
+		pos['x'] += 200
+		pos['y'] = forks[len(forks)-1].y
+	else:
+		pos['x'] = 200
+		pos['y'] = 200
+	return pos
 
 def createRandomForks(canvas, count):
 	if len(forks) < count:
 		for i in range(count - len(forks)+1):
 			fork = Fork()
 
-			if len(forks) > 0 and forks[len(forks)-1] is not None:
-				fork.x = forks[len(forks)-1].x
-				fork.x += 150
-				fork.y = forks[len(forks)-1].y
-			else:
-				fork.x = i*150
-				fork.y = 100
+			pos = getRandomForkPos()
+
+			fork.x = pos['x']
+			fork.y = pos['y']
+
+			# Setting a random edge
+			fork.edge = edges[random.randint(0, 1)]
 
 			forks.append(fork)
 
@@ -29,8 +44,13 @@ def createRandomForks(canvas, count):
 	for fork in forks:
 		if fork.x < 0:
 			forks.pop(index)
-		fork.x -= 2
+		fork.x -= 3
 		index += 1
 
-		pygame.draw.line(canvas, fork.color, [fork.x, 0], [fork.x, fork.y], 5)
+		line_start = [fork.x, fork.y]
+		if fork.edge == 'top':
+			line_end = [fork.x, 0]
+		elif fork.edge == 'bottom':
+			line_end = [fork.x, SCREEN_HEIGHT]
+		pygame.draw.line(canvas, fork.color, line_start, line_end, 5)
 

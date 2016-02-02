@@ -1,18 +1,10 @@
 import pygame, forks
 from pygame.locals import *
-
-# Define colors
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
+from configs import *
 
 pygame.init()
 
 # Set the width and height of the screen
-SCREEN_WIDTH = 740
-SCREEN_HEIGHT = 480
 screen_size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(screen_size)
 
