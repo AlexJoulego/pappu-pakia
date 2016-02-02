@@ -25,7 +25,7 @@ def getRandomForkPos():
 		pos['y'] = 200
 	return pos
 
-def createRandomForks(canvas, count):
+def drawForks(canvas, count):
 	if len(forks) < count:
 		for i in range(count - len(forks)+1):
 			fork = Fork()

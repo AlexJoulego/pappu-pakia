@@ -1,4 +1,5 @@
-import pygame, forks
+import pygame
+import forks, utils
 from pygame.locals import *
 from configs import *
 
@@ -13,6 +14,12 @@ pygame.display.set_caption("Pappu Pakia")
 # Data structures and globals
 fork_count = 6
 gravity = 0.2
+
+# Draw awesome backgrounds
+clouds = pygame.image.load("clouds.png").convert_alpha()
+back_trees = pygame.image.load("back_trees.png").convert_alpha()
+front_trees = pygame.image.load("front_trees.png").convert_alpha()
+ground = pygame.image.load("ground.png").convert_alpha()
 
 class Pappu(object):
 	def __init__(self):
@@ -45,6 +52,16 @@ v_cap = 4
 # acceleration
 ax = 0
 ay = 0
+
+# Draw awesome backgrounds
+# Backgrounds have been made for 1000x500 dimensions
+def drawBackgrounds(canvas):
+	# Draw linear gradient for real/pure BG (sky/water)	
+	utils.fill_gradient(screen, GRADIENT_START, GRADIENT_STOP)	
+	canvas.blit(clouds, (0, 0))
+	canvas.blit(back_trees, (0, 0))
+	canvas.blit(front_trees, (0, 0))
+	canvas.blit(ground, (0, 0))
 
 
 # Loop until the user clicks the close button
@@ -86,12 +103,13 @@ while not done:
 	pappu.y += vy
 
 	# --- Screen-clearing code
-	screen.fill(WHITE)
+	screen.fill(WHITE)	
+	drawBackgrounds(screen)
 
 	# --- Drawing code
 	pappu.draw(screen)
 	# Draw forks
-	forks.createRandomForks(screen, 6)
+	forks.drawForks(screen, 6)
 	
 	# --- Update the screen
 	pygame.display.flip()
