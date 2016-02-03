@@ -19,6 +19,7 @@ GRADIENT_STOP = (123, 212, 246)
 font_path = "./fonts/happy_sans-webfont.ttf"
 font_size = 63
 credits_size = 36
+credits2_size = 28
 
 fork_count = 6
 gravity = 0.2

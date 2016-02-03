@@ -44,10 +44,19 @@ fronttree_bg_vx = 0
 ground_bg_move_speed = 4
 ground_bg_vx = 0
 
+stand = pygame.image.load("stand.png").convert_alpha()
+stand_rect = stand.get_rect()
+stand_pos = (SCREEN_WIDTH - 150, 85)
+
+plank_top = pygame.image.load("plank_top.png").convert_alpha()
+plank_top_rect = plank_top.get_rect()
+plank_top_pos = (SCREEN_WIDTH - 220, 150)
+
 # Font
 pygame.font.init()
 fontObj = pygame.font.Font(font_path, font_size)
 creditsFont = pygame.font.Font(font_path, credits_size)
+credits2Font = pygame.font.Font(font_path, credits2_size)
 
 # Loop until the user clicks the close button
 done = False
@@ -88,7 +97,8 @@ while not done:
 	# --- Game logic
 	# Game over on reaching any boundary
 	if pappu.hasReachedBoundary(SCREEN_WIDTH, SCREEN_HEIGHT):
-		done = True
+		# done = True
+		pass
 
 	# Velocity
 	if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
@@ -137,14 +147,6 @@ while not done:
 
 
 	# --- Drawing code
-	if flying_up:
-		pappu.flying_up = True
-	pappu.draw(screen)
-	# Draw forks
-	# forks.drawForks(screen, 6)
-	# Draw branches
-	# branches.drawBranches(screen, 4)
-
 	title = fontObj.render("Pappu Pakia", 0, TITLE)
 	title_pos = (SCREEN_WIDTH // 3, 20)
 	screen.blit(title, title_pos)
@@ -153,9 +155,24 @@ while not done:
 	credits_pos = (SCREEN_WIDTH // 3 - 70, 80)
 	screen.blit(credits, credits_pos)
 
-	credits2 = creditsFont.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
+	credits2 = credits2Font.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
 	credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
 	screen.blit(credits2, credits2_pos)
+
+	screen.blit(stand, stand_pos)
+
+	screen.blit(plank_top, plank_top_pos)
+	
+
+	if flying_up:
+		pappu.flying_up = True
+	pappu.draw(screen)
+	# Draw forks
+	# forks.drawForks(screen, 6)
+	# Draw branches
+	# branches.drawBranches(screen, 4)
+
+	
 	
 	# --- Update the screen
 	pygame.display.flip()
