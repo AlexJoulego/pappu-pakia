@@ -13,8 +13,7 @@ screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("Pappu Pakia")
 
 # Data structures and globals
-fork_count = 6
-gravity = 0.2
+
 
 pappu = Pappu()
 
@@ -45,6 +44,10 @@ fronttree_bg_vx = 0
 ground_bg_move_speed = 4
 ground_bg_vx = 0
 
+# Font
+pygame.font.init()
+fontObj = pygame.font.Font(font_path, font_size)
+creditsFont = pygame.font.Font(font_path, credits_size)
 
 # Loop until the user clicks the close button
 done = False
@@ -141,6 +144,18 @@ while not done:
 	# forks.drawForks(screen, 6)
 	# Draw branches
 	# branches.drawBranches(screen, 4)
+
+	title = fontObj.render("Pappu Pakia", 0, TITLE)
+	title_pos = (SCREEN_WIDTH // 3, 20)
+	screen.blit(title, title_pos)
+
+	credits = creditsFont.render("by Kushagra and Rishabha", 0, CREDITS)
+	credits_pos = (SCREEN_WIDTH // 3 - 70, 80)
+	screen.blit(credits, credits_pos)
+
+	credits2 = creditsFont.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
+	credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
+	screen.blit(credits2, credits2_pos)
 	
 	# --- Update the screen
 	pygame.display.flip()
