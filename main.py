@@ -58,6 +58,11 @@ fontObj = pygame.font.Font(font_path, font_size)
 creditsFont = pygame.font.Font(font_path, credits_size)
 credits2Font = pygame.font.Font(font_path, credits2_size)
 
+# Score board
+score = 0
+scoreFont = pygame.font.Font(font_path, score_size)
+score_pos = (10, 10)
+
 # Loop until the user clicks the close button
 done = False
 
@@ -160,8 +165,10 @@ while not done:
 	screen.blit(credits2, credits2_pos)
 
 	screen.blit(stand, stand_pos)
-
 	screen.blit(plank_top, plank_top_pos)
+
+	score_text = scoreFont.render(str(score), 0, SCORE)
+	screen.blit(score_text, score_pos)
 	
 
 	if flying_up:
