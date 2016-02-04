@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 import forks, branches, utils
 from pygame.locals import *
 from pappu import Pappu
@@ -61,7 +61,7 @@ credits2Font = pygame.font.Font(font_path, credits2_size)
 # Score board
 score = 0
 scoreFont = pygame.font.Font(font_path, score_size)
-score_pos = (10, 10)
+score_pos = (SCREEN_WIDTH - 100, 10)
 
 # Loop until the user clicks the close button
 done = False
@@ -69,12 +69,35 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
+started = False
+
+def intro():
+	title = fontObj.render("Pappu Pakia", 0, TITLE)
+	title_pos = (SCREEN_WIDTH // 3, 20)
+	screen.blit(title, title_pos)
+
+	credits = creditsFont.render("by Kushagra and Rishabha", 0, CREDITS)
+	credits_pos = (SCREEN_WIDTH // 3 - 70, 80)
+	screen.blit(credits, credits_pos)
+
+	credits2 = credits2Font.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
+	credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
+	screen.blit(credits2, credits2_pos)
+
+	screen.blit(stand, stand_pos)
+	screen.blit(plank_top, plank_top_pos)
+	
+
+def terminate():
+	pygame.quit()
+	sys.exit()
+
 # --------------- Main Program Loop ---------------
 while not done:
 	# --- Main event loop
 	for event in pygame.event.get():
 		if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
-			done = True
+			terminate()
 		if event.type == KEYDOWN:
 			if event.key == K_LEFT:
 				ax = -0.1
@@ -152,23 +175,12 @@ while not done:
 
 
 	# --- Drawing code
-	title = fontObj.render("Pappu Pakia", 0, TITLE)
-	title_pos = (SCREEN_WIDTH // 3, 20)
-	screen.blit(title, title_pos)
-
-	credits = creditsFont.render("by Kushagra and Rishabha", 0, CREDITS)
-	credits_pos = (SCREEN_WIDTH // 3 - 70, 80)
-	screen.blit(credits, credits_pos)
-
-	credits2 = credits2Font.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
-	credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
-	screen.blit(credits2, credits2_pos)
-
-	screen.blit(stand, stand_pos)
-	screen.blit(plank_top, plank_top_pos)
+	if not started:
+		intro()
 
 	score_text = scoreFont.render(str(score), 0, SCORE)
 	screen.blit(score_text, score_pos)
+	score += 1
 	
 
 	if flying_up:
@@ -186,5 +198,3 @@ while not done:
 
 	# --- Limit to 80 frames per second
 	clock.tick(80)
-
-pygame.quit()
