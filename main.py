@@ -94,7 +94,7 @@ def pressed(mouse, rect):
 
 def intro():
 	title = fontObj.render("Pappu Pakia", 0, TITLE)
-	title_pos = (SCREEN_WIDTH // 3, 20)
+	title_pos = (SCREEN_WIDTH // 3 - 30, 20)
 	screen.blit(title, title_pos)
 
 	credits = creditsFont.render("by Kushagra and Rishabha", 0, CREDITS)
@@ -164,7 +164,7 @@ while not done:
 	# Game over on reaching any boundary
 	if pappu.hasReachedBoundary(SCREEN_WIDTH, SCREEN_HEIGHT):
 		# done = True
-		pass
+		started = False
 
 	score += 1
 
