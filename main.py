@@ -2,7 +2,6 @@ import pygame, sys
 import forks, branches, utils
 from pygame.locals import *
 from pappu import Pappu
-from button import Button
 from configs import *
 
 pygame.init()
