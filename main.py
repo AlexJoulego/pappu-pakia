@@ -53,11 +53,6 @@ plank_pos = (SCREEN_WIDTH - 220, 150)
 plank_x, plank_y = plank_pos
 plank_btm = (plank_x + 160, plank_y + 150)
 plank_rect = (plank_x, plank_y, plank_btm[0], plank_btm[1])
-print(plank_x, plank_y, plank_btm)
-
-# button = Button()
-# button.setCoords(SCREEN_WIDTH - 220, 150)
-
 
 # Font
 pygame.font.init()
@@ -166,6 +161,8 @@ while not done:
 		# done = True
 		pass
 
+	score += 1
+
 	# Velocity
 	if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
 		vy += ay
@@ -217,8 +214,7 @@ while not done:
 		intro()
 
 	score_text = scoreFont.render(str(score), 0, SCORE)
-	screen.blit(score_text, score_pos)
-	score += 1
+	screen.blit(score_text, score_pos)	
 	
 
 	if flying_up:
