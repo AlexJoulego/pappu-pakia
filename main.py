@@ -54,6 +54,9 @@ plank_x, plank_y = plank_pos
 plank_btm = (plank_x + 160, plank_y + 150)
 plank_rect = (plank_x, plank_y, plank_btm[0], plank_btm[1])
 
+controls = pygame.image.load("controls.png").convert_alpha()
+controls_pos = (SCREEN_WIDTH * 0.2, SCREEN_HEIGHT * 0.6)
+
 # Font
 pygame.font.init()
 fontObj = pygame.font.Font(font_path, font_size)
@@ -108,6 +111,8 @@ def intro():
 	start_button = startFont.render("Start", 0, start_color)
 	start_pos = (SCREEN_WIDTH - 173, 160)
 	screen.blit(start_button, start_pos)
+	
+	screen.blit(controls, controls_pos)
 	
 
 def terminate():
