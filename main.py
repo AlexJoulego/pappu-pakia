@@ -2,6 +2,7 @@ import pygame, sys
 import forks, branches, utils
 from pygame.locals import *
 from pappu import Pappu
+from button import Button
 from configs import *
 
 pygame.init()
@@ -48,15 +49,23 @@ stand = pygame.image.load("stand.png").convert_alpha()
 stand_rect = stand.get_rect()
 stand_pos = (SCREEN_WIDTH - 150, 85)
 
-plank_top = pygame.image.load("plank_top.png").convert_alpha()
-plank_top_rect = plank_top.get_rect()
-plank_top_pos = (SCREEN_WIDTH - 220, 150)
+plank = pygame.image.load("plank_top.png").convert_alpha()
+plank_pos = (SCREEN_WIDTH - 220, 150)
+plank_x, plank_y = plank_pos
+plank_btm = (plank_x + 160, plank_y + 150)
+plank_rect = (plank_x, plank_y, plank_btm[0], plank_btm[1])
+print(plank_x, plank_y, plank_btm)
+
+# button = Button()
+# button.setCoords(SCREEN_WIDTH - 220, 150)
+
 
 # Font
 pygame.font.init()
 fontObj = pygame.font.Font(font_path, font_size)
 creditsFont = pygame.font.Font(font_path, credits_size)
 credits2Font = pygame.font.Font(font_path, credits2_size)
+startFont = pygame.font.Font(font_path, start_size)
 
 # Score board
 score = 0
@@ -70,6 +79,21 @@ done = False
 clock = pygame.time.Clock()
 
 started = False
+
+def pressed(mouse, rect):
+	if mouse[0] > rect[0]:
+		if mouse[1] > rect[1]:
+			if mouse[0] < rect[2]:
+				if mouse[1] < rect[3]:
+					return True
+				else:
+					return False
+			else:
+				return False
+		else:
+			return False
+	else:
+		return False
 
 def intro():
 	title = fontObj.render("Pappu Pakia", 0, TITLE)
@@ -85,7 +109,11 @@ def intro():
 	screen.blit(credits2, credits2_pos)
 
 	screen.blit(stand, stand_pos)
-	screen.blit(plank_top, plank_top_pos)
+	screen.blit(plank, plank_pos)	
+
+	start_button = startFont.render("Start", 0, start_color)
+	start_pos = (SCREEN_WIDTH - 173, 160)
+	screen.blit(start_button, start_pos)
 	
 
 def terminate():
@@ -115,12 +143,23 @@ while not done:
 
 		# Game play on mouse clicks, too!
 		if event.type == MOUSEBUTTONDOWN:
+			mouse = pygame.mouse.get_pos()
+			if pressed(mouse, plank_rect):
+				started = True
+			
 			ay = -0.4
 			flying_up = True
 		if event.type == MOUSEBUTTONUP:
 			ax = 0
 			ay = 0
 			flying_up = False
+
+		if event.type == MOUSEMOTION:
+			mouse = pygame.mouse.get_pos()
+			if pressed(mouse, plank_rect):
+				start_color = WHITE
+			else:
+				start_color = START
 
 	# --- Game logic
 	# Game over on reaching any boundary

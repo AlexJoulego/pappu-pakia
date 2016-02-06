@@ -12,6 +12,9 @@ TITLE = (148, 84, 48)
 CREDITS = WHITE
 MY_CREDITS = (255, 238, 170)
 SCORE = BLACK
+START = (200, 200, 200)
+start_color = START
+STARTED = WHITE
 
 GRADIENT_START = (6, 196, 244)
 GRADIENT_STOP = (123, 212, 246)
@@ -22,6 +25,7 @@ font_size = 63
 credits_size = 36
 credits2_size = 28
 score_size = 30
+start_size = 40
 
 fork_count = 6
 gravity = 0.2
