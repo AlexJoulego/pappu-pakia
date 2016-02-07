@@ -82,6 +82,7 @@ clock = pygame.time.Clock()
 
 started = False
 first_start = True
+game_over = False
 
 def pressed(mouse, rect):
 	if mouse[0] > rect[0]:
@@ -131,6 +132,7 @@ def intro():
 	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
 
 
+
 def terminate():
 	pygame.quit()
 	sys.exit()
@@ -161,8 +163,9 @@ while not done:
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
 				started = True
-				score = 0			
-
+				if game_over:
+					score = 0
+				
 			ay = -0.4
 			flying_up = True
 		if event.type == MOUSEBUTTONUP:
@@ -184,6 +187,7 @@ while not done:
 		# done = True
 		first_start = False
 		started = False
+		game_over = True
 	
 	if started:
 		# Velocity
