@@ -34,6 +34,7 @@ clouds = pygame.image.load("clouds.png").convert_alpha()
 back_trees = pygame.image.load("back_trees.png").convert_alpha()
 front_trees = pygame.image.load("front_trees.png").convert_alpha()
 ground = pygame.image.load("ground.png").convert_alpha()
+grass = pygame.image.load("grass.png").convert_alpha()
 
 cloud_bg_move_speed = 1
 cloud_bg_vx = 0
@@ -43,6 +44,8 @@ fronttree_bg_move_speed = 3
 fronttree_bg_vx = 0
 ground_bg_move_speed = 4
 ground_bg_vx = 0
+grass_bg_move_speed = 4
+grass_bg_vs = 0
 
 stand = pygame.image.load("stand.png").convert_alpha()
 stand_rect = stand.get_rect()
@@ -184,7 +187,8 @@ while not done:
 	# Clouds
 	if -cloud_bg_vx >= SCREEN_WIDTH:
 		cloud_bg_vx = 0
-	cloud_bg_vx -= cloud_bg_move_speed
+	if started:
+		cloud_bg_vx -= cloud_bg_move_speed
 
 	screen.blit(clouds, (cloud_bg_vx, 0))	
 	screen.blit(clouds, (SCREEN_WIDTH + cloud_bg_vx, 0))
@@ -192,7 +196,8 @@ while not done:
 	# Black Trees
 	if -backtree_bg_vx >= SCREEN_WIDTH:
 		backtree_bg_vx = 0
-	backtree_bg_vx -= backtree_bg_move_speed
+	if started:
+		backtree_bg_vx -= backtree_bg_move_speed
 
 	screen.blit(back_trees, (backtree_bg_vx, 0))
 	screen.blit(back_trees, (SCREEN_WIDTH + backtree_bg_vx, 0))
@@ -200,7 +205,8 @@ while not done:
 	# Front Trees
 	if -fronttree_bg_vx >= SCREEN_WIDTH:
 		fronttree_bg_vx = 0
-	fronttree_bg_vx -= fronttree_bg_move_speed
+	if started:
+		fronttree_bg_vx -= fronttree_bg_move_speed
 
 	screen.blit(front_trees, (fronttree_bg_vx, 0))
 	screen.blit(front_trees, (SCREEN_WIDTH + fronttree_bg_vx, 0))
@@ -208,10 +214,20 @@ while not done:
 	# Ground
 	if -ground_bg_vx >= SCREEN_WIDTH:
 		ground_bg_vx = 0
-	ground_bg_vx -= ground_bg_move_speed
+	if started:
+		ground_bg_vx -= ground_bg_move_speed
 
 	screen.blit(ground, (ground_bg_vx, 0))
 	screen.blit(ground, (SCREEN_WIDTH + ground_bg_vx, 0))
+
+	# Grass
+	if -grass_bg_vs >= SCREEN_WIDTH:
+		grass_bg_vs = 0
+	if started:
+		grass_bg_vs -= grass_bg_move_speed
+
+	screen.blit(grass, (grass_bg_vs, 0))
+	screen.blit(grass, (SCREEN_WIDTH + grass_bg_vs, 0))
 
 
 	# --- Drawing code
