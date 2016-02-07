@@ -44,3 +44,27 @@ def fill_gradient(surface, color, gradient, rect=None, vertical=True, forward=Tr
 				min(max(a[2] + (rate[2] * (col-x1)), 0), 255))
 			fn_line(surface, color, (col, y1), (col, y2))
 
+def blit_alpha(target, source, location, opacity):
+	x = location[0]
+	y = location[1]
+	temp = pygame.Surface((source.get_width(), source.get_height())).convert()
+	temp.blit(target, (-x, -y))
+	temp.blit(source, (0, 0))
+	temp.set_alpha(opacity)
+	target.blit(temp, location)
+
+def pressed(mouse, rect):
+	if mouse[0] > rect[0]:
+		if mouse[1] > rect[1]:
+			if mouse[0] < rect[2]:
+				if mouse[1] < rect[3]:
+					return True
+				else:
+					return False
+			else:
+				return False
+		else:
+			return False
+	else:
+		return False
+

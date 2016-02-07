@@ -3,6 +3,7 @@ import forks, branches, utils
 from pygame.locals import *
 from pappu import Pappu
 from configs import *
+from utils import *
 
 pygame.init()
 
@@ -13,9 +14,6 @@ screen = pygame.display.set_mode(screen_size)
 pygame.display.set_caption("Pappu Pakia")
 
 # Data structures and globals
-
-
-pappu = Pappu()
 
 
 # velocity
@@ -77,6 +75,9 @@ score = 0
 scoreFont = pygame.font.Font(font_path, score_size)
 score_pos = (SCREEN_WIDTH - 100, 10)
 
+opacity = 0
+
+
 # Loop until the user clicks the close button
 done = False
 
@@ -88,56 +89,51 @@ first_start = True
 game_over = True
 start_btn_click = 0
 
-def pressed(mouse, rect):
-	if mouse[0] > rect[0]:
-		if mouse[1] > rect[1]:
-			if mouse[0] < rect[2]:
-				if mouse[1] < rect[3]:
-					return True
-				else:
-					return False
-			else:
-				return False
-		else:
-			return False
-	else:
-		return False
-
-def intro():
-	title = fontObj.render("Pappu Pakia", 0, TITLE)
-	title_pos = (SCREEN_WIDTH // 3 - 30, 20)
-	screen.blit(title, title_pos)
-
-	credits = creditsFont.render("by Kushagra and Rishabha", 0, CREDITS)
-	credits_pos = (SCREEN_WIDTH // 3 - 70, 80)
-	screen.blit(credits, credits_pos)
-
-	credits2 = credits2Font.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
-	credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
-	screen.blit(credits2, credits2_pos)
-
-	screen.blit(dig, dig_pos)
-	screen.blit(stand, stand_pos)
-	screen.blit(plank, plank_pos)
-	
-
-	if first_start:
-		start_text = "Start"
-	else:
-		start_text = "Restart"
-	start_button = startFont.render(start_text, 0, start_color)
-	start_pos = (SCREEN_WIDTH - 173, 160)
-	screen.blit(start_button, start_pos)
-	
-	screen.blit(controls, controls_pos)
-
+pappu = Pappu()
+if not started:
 	pappu.x = 38
-	pappu.y = 284	
+	pappu.y = 284
+
+title = fontObj.render("Pappu Pakia", 0, TITLE)
+title_pos = (SCREEN_WIDTH // 3 - 30, 20)
+credits = creditsFont.render("by Kushagra and Rishabha", 0, CREDITS)
+credits_pos = (SCREEN_WIDTH // 3 - 70, 80)
+credits2 = credits2Font.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
+credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
+if first_start:
+		start_text = "Start"
+else:
+	start_text = "Restart"
+start_button = startFont.render(start_text, 0, start_color)
+start_pos = (SCREEN_WIDTH - 173, 160)
+
+
+def intro(fade=0):
+	global opacity
+
+
+	if fade == 1:
+		opacity -= 10		
+	else:
+		opacity += 5
 	
-	# log_x = 30
-	# screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
+	blit_alpha(screen, title, title_pos, opacity)	
+	blit_alpha(screen, credits, credits_pos, opacity)	
+	blit_alpha(screen, credits2, credits2_pos, opacity)
 
+	blit_alpha(screen, dig, dig_pos, opacity)	
+	blit_alpha(screen, stand, stand_pos, opacity)	
+	blit_alpha(screen, plank, plank_pos, opacity)
+	
+	blit_alpha(screen, start_button, start_pos, opacity)
+	
+	blit_alpha(screen, controls, controls_pos, opacity)
 
+	if opacity >= 255:
+		opacity = 255		
+	elif opacity <= 0:
+		opacity = 0
+	
 
 def terminate():
 	pygame.quit()
@@ -202,6 +198,8 @@ while not done:
 		started = False
 		game_over = True
 		start_btn_click = 0
+		pappu.x = 38
+		pappu.y = 284
 	
 	if started and not game_over:
 		# game_over = False
@@ -217,12 +215,13 @@ while not done:
 	screen.fill(WHITE)
 	
 	# --- Draw animated BACKGROUND
-	utils.fill_gradient(screen, GRADIENT_START, GRADIENT_STOP)
+	fill_gradient(screen, GRADIENT_START, GRADIENT_STOP)
 	# Clouds
 	if -cloud_bg_vx >= SCREEN_WIDTH:
 		cloud_bg_vx = 0
 	if started and not game_over:
 		cloud_bg_vx -= cloud_bg_move_speed
+		opacity = 0
 
 	screen.blit(clouds, (cloud_bg_vx, 0))	
 	screen.blit(clouds, (SCREEN_WIDTH + cloud_bg_vx, 0))
@@ -260,7 +259,6 @@ while not done:
 	if started and not game_over:
 		grass_bg_vs -= grass_bg_move_speed
 
-	# print(game_over, started)
 
 	screen.blit(grass, (grass_bg_vs, 0))
 	screen.blit(grass, (SCREEN_WIDTH + grass_bg_vs, 0))
@@ -269,6 +267,9 @@ while not done:
 	# --- Drawing code
 	if not started:
 		intro()
+	else:
+		intro(1)
+	
 
 	score_text = scoreFont.render(str(int(score)), 0, SCORE)
 	screen.blit(score_text, score_pos)	
