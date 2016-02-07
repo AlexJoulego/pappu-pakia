@@ -37,6 +37,7 @@ ground = pygame.image.load("ground.png").convert_alpha()
 grass = pygame.image.load("grass.png").convert_alpha()
 log = pygame.image.load("log.png").convert_alpha()
 log_x = 30
+dig = pygame.image.load("dig.png").convert_alpha()
 
 cloud_bg_move_speed = 1
 cloud_bg_vx = 0
@@ -58,6 +59,8 @@ plank_pos = (SCREEN_WIDTH - 220, 150)
 plank_x, plank_y = plank_pos
 plank_btm = (plank_x + 160, plank_y + 150)
 plank_rect = (plank_x, plank_y, plank_btm[0], plank_btm[1])
+
+dig_pos = (SCREEN_WIDTH - 150, 450)
 
 controls = pygame.image.load("controls.png").convert_alpha()
 controls_pos = (SCREEN_WIDTH * 0.2, SCREEN_HEIGHT * 0.6)
@@ -113,8 +116,10 @@ def intro():
 	credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
 	screen.blit(credits2, credits2_pos)
 
+	screen.blit(dig, dig_pos)
 	screen.blit(stand, stand_pos)
-	screen.blit(plank, plank_pos)	
+	screen.blit(plank, plank_pos)
+	
 
 	if first_start:
 		start_text = "Start"
