@@ -150,6 +150,8 @@ while not done:
 			if event.key == K_RIGHT:
 				ax = 0.1
 			if event.key == K_UP:
+				if game_over:
+					game_over = False
 				ay = -0.4
 				flying_up = True
 			if event.key == K_DOWN:
