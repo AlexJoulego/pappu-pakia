@@ -82,7 +82,8 @@ clock = pygame.time.Clock()
 
 started = False
 first_start = True
-game_over = False
+game_over = True
+start_btn_click = 0
 
 def pressed(mouse, rect):
 	if mouse[0] > rect[0]:
@@ -129,7 +130,7 @@ def intro():
 	pappu.y = 284	
 	
 	# log_x = 30
-	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
+	# screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
 
 
 
@@ -159,15 +160,20 @@ while not done:
 			flying_up = False
 
 		# Game play on mouse clicks, too!
-		if event.type == MOUSEBUTTONDOWN:
+		if event.type == MOUSEBUTTONDOWN and start_btn_click == 0:
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
 				started = True
 				if game_over:
 					score = 0
-				
+				start_btn_click += 1					
+			
+		
+		elif event.type == MOUSEBUTTONDOWN and start_btn_click == 1:
+			game_over = False
 			ay = -0.4
-			flying_up = True
+			flying_up = True			
+
 		if event.type == MOUSEBUTTONUP:
 			ax = 0
 			ay = 0
@@ -188,8 +194,10 @@ while not done:
 		first_start = False
 		started = False
 		game_over = True
+		start_btn_click = 0
 	
-	if started:
+	if started and not game_over:
+		# game_over = False
 		# Velocity
 		if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
 			vy += ay
@@ -206,7 +214,7 @@ while not done:
 	# Clouds
 	if -cloud_bg_vx >= SCREEN_WIDTH:
 		cloud_bg_vx = 0
-	if started:
+	if started and not game_over:
 		cloud_bg_vx -= cloud_bg_move_speed
 
 	screen.blit(clouds, (cloud_bg_vx, 0))	
@@ -215,7 +223,7 @@ while not done:
 	# Black Trees
 	if -backtree_bg_vx >= SCREEN_WIDTH:
 		backtree_bg_vx = 0
-	if started:
+	if started and not game_over:
 		backtree_bg_vx -= backtree_bg_move_speed
 
 	screen.blit(back_trees, (backtree_bg_vx, 0))
@@ -224,7 +232,7 @@ while not done:
 	# Front Trees
 	if -fronttree_bg_vx >= SCREEN_WIDTH:
 		fronttree_bg_vx = 0
-	if started:
+	if started and not game_over:
 		fronttree_bg_vx -= fronttree_bg_move_speed
 
 	screen.blit(front_trees, (fronttree_bg_vx, 0))
@@ -233,7 +241,7 @@ while not done:
 	# Ground
 	if -ground_bg_vx >= SCREEN_WIDTH:
 		ground_bg_vx = 0
-	if started:
+	if started and not game_over:
 		ground_bg_vx -= ground_bg_move_speed
 
 	screen.blit(ground, (ground_bg_vx, 0))
@@ -242,8 +250,10 @@ while not done:
 	# Grass
 	if -grass_bg_vs >= SCREEN_WIDTH:
 		grass_bg_vs = 0
-	if started:
+	if started and not game_over:
 		grass_bg_vs -= grass_bg_move_speed
+
+	# print(game_over, started)
 
 	screen.blit(grass, (grass_bg_vs, 0))
 	screen.blit(grass, (SCREEN_WIDTH + grass_bg_vs, 0))
@@ -259,7 +269,7 @@ while not done:
 
 	if flying_up:
 		pappu.flying_up = True
-	if started:
+	if started and not game_over:
 		pappu.draw(screen)
 	else:
 		pappu.drawStatic(screen)
@@ -269,15 +279,16 @@ while not done:
 	# branches.drawBranches(screen, 4)
 
 	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
-	if started:
+	if started and not game_over:
 		log_x -= grass_bg_move_speed
 	else:
 		log_x = 30	
 
 	# Update score
-	if started:
+	if started and not game_over:
 		score += 0.2
 
+	
 	# --- Update the screen
 	pygame.display.flip()
 
