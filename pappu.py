@@ -22,7 +22,7 @@ class Pappu(pygame.sprite.Sprite):
 
 		self.flying_up = False
 
-		self.change_per_frame = 5
+		self.change_per_frame = 10
 
 		for frame in range(0, self.sprite_num, self.sprite_w):
 			shift = (self.rect.left + frame, self.rect.top, self.rect.width // 6, self.rect.height)

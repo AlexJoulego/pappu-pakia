@@ -37,16 +37,7 @@ log = pygame.image.load("log.png").convert_alpha()
 log_x = 30
 dig = pygame.image.load("dig.png").convert_alpha()
 
-cloud_bg_move_speed = 1
-cloud_bg_vx = 0
-backtree_bg_move_speed = 2
-backtree_bg_vx = 0
-fronttree_bg_move_speed = 3
-fronttree_bg_vx = 0
-ground_bg_move_speed = 4
-ground_bg_vx = 0
-grass_bg_move_speed = 4
-grass_bg_vs = 0
+
 
 stand = pygame.image.load("stand.png").convert_alpha()
 stand_rect = stand.get_rect()
@@ -104,7 +95,7 @@ if first_start:
 		start_text = "Start"
 else:
 	start_text = "Restart"
-start_button = startFont.render(start_text, 0, start_color)
+# start_button = startFont.render(start_text, 0, start_color)
 start_pos = (SCREEN_WIDTH - 173, 160)
 
 
@@ -125,6 +116,7 @@ def intro(fade=0):
 	blit_alpha(screen, stand, stand_pos, opacity)	
 	blit_alpha(screen, plank, plank_pos, opacity)
 	
+	start_button = startFont.render(start_text, 0, start_color)
 	blit_alpha(screen, start_button, start_pos, opacity)
 	
 	blit_alpha(screen, controls, controls_pos, opacity)
@@ -184,7 +176,7 @@ while not done:
 
 		if event.type == MOUSEMOTION:
 			mouse = pygame.mouse.get_pos()
-			if pressed(mouse, plank_rect):
+			if not started and pressed(mouse, plank_rect):
 				start_color = WHITE
 			else:
 				start_color = START
@@ -281,10 +273,12 @@ while not done:
 		pappu.draw(screen)
 	else:
 		pappu.drawStatic(screen)
-	# Draw forks
-	forks.drawForks(screen, 6)
-	# Draw branches
-	# branches.drawBranches(screen, 4)
+	
+	if started and not game_over:
+		# Draw forks
+		forks.draw(screen, 6)
+		# Draw branches
+		branches.draw(screen, 4)
 
 	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
 	if started and not game_over:

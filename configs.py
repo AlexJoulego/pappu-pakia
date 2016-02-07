@@ -30,3 +30,14 @@ start_size = 40
 
 fork_count = 6
 gravity = 0.2
+
+cloud_bg_move_speed = 1
+cloud_bg_vx = 0
+backtree_bg_move_speed = 2
+backtree_bg_vx = 0
+fronttree_bg_move_speed = 3
+fronttree_bg_vx = 0
+ground_bg_move_speed = 4
+ground_bg_vx = 0
+grass_bg_move_speed = 4
+grass_bg_vs = 0
