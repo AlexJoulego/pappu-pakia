@@ -37,7 +37,6 @@ ground = pygame.image.load("ground.png").convert_alpha()
 grass = pygame.image.load("grass.png").convert_alpha()
 log = pygame.image.load("log.png").convert_alpha()
 log_x = 30
-print(log)
 
 cloud_bg_move_speed = 1
 cloud_bg_vx = 0
@@ -126,7 +125,7 @@ def intro():
 	screen.blit(controls, controls_pos)
 
 	pappu.x = 38
-	pappu.y = 284
+	pappu.y = 284	
 	
 	# log_x = 30
 	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
@@ -161,7 +160,8 @@ while not done:
 		if event.type == MOUSEBUTTONDOWN:
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
-				started = True				
+				started = True
+				score = 0			
 
 			ay = -0.4
 			flying_up = True
@@ -184,9 +184,7 @@ while not done:
 		# done = True
 		first_start = False
 		started = False
-
-	score += 1
-
+	
 	if started:
 		# Velocity
 		if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
@@ -251,7 +249,7 @@ while not done:
 	if not started:
 		intro()
 
-	score_text = scoreFont.render(str(score), 0, SCORE)
+	score_text = scoreFont.render(str(int(score)), 0, SCORE)
 	screen.blit(score_text, score_pos)	
 	
 
@@ -268,10 +266,14 @@ while not done:
 
 	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
 	if started:
-		log_x -= 2
+		log_x -= grass_bg_move_speed
 	else:
 		log_x = 30	
-	
+
+	# Update score
+	if started:
+		score += 0.2
+
 	# --- Update the screen
 	pygame.display.flip()
 
