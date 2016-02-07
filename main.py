@@ -211,8 +211,8 @@ while not done:
 	# Clouds
 	if -cloud_bg_vx >= SCREEN_WIDTH:
 		cloud_bg_vx = 0
-	if started and not game_over:
-		cloud_bg_vx -= cloud_bg_move_speed
+	cloud_bg_vx -= cloud_bg_move_speed
+	if started and not game_over:		
 		opacity = 0
 
 	screen.blit(clouds, (cloud_bg_vx, 0))	

@@ -5,7 +5,11 @@ forks = []
 edges = ['top', 'bottom']
 
 fork_img = pygame.image.load('fork_handle.png')
+fork_rect = fork_img.get_rect()
 
+# Images
+fork_head_img = pygame.image.load('fork_head.png')
+fork_head_rect = fork_head_img.get_rect()
 dig_img = pygame.image.load('dig.png')
 dig_rect = dig_img.get_rect()
 
@@ -45,8 +49,10 @@ def draw(canvas, count):
 				fork.dig_y = SCREEN_HEIGHT - dig_rect[3]
 
 				fork.y = 200 + random.randint(0, 100)
+				fork.y += fork_head_rect[3]
 			if fork.edge == 'top':
 				fork.y = 0 - random.randint(0, 100)
+				fork.y -= fork_head_rect[3]
 
 			pos = getRandomForkPos()
 			fork.x = pos['x']
@@ -62,5 +68,16 @@ def draw(canvas, count):
 
 		
 		canvas.blit(fork_img, (fork.x, fork.y))
+
+		# Draw fork head
+		if fork.edge == 'top':
+			translate = (fork.x, fork.y + fork_head_rect[3])
+			fork_head_rotated = pygame.transform.rotate(fork_head_img, 180)			
+			translate = (fork.x, fork.y + fork_rect[3])
+
+			canvas.blit(fork_head_rotated, translate)
 		if fork.edge == 'bottom':
 			canvas.blit(dig_img, (fork.x - fork.dig_x, fork.dig_y))
+			
+			translate = (fork.x - fork_head_rect[2]/5, fork.y - fork_head_rect[3])
+			canvas.blit(fork_head_img, translate)
