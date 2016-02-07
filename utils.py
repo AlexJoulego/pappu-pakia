@@ -45,6 +45,10 @@ def fill_gradient(surface, color, gradient, rect=None, vertical=True, forward=Tr
 			fn_line(surface, color, (col, y1), (col, y2))
 
 def blit_alpha(target, source, location, opacity):
+	''' Blits image with transparency at lower opacity
+	Special thanks to Blake
+	http://www.nerdparadise.com/tech/python/pygame/blitopacity
+	'''
 	x = location[0]
 	y = location[1]
 	temp = pygame.Surface((source.get_width(), source.get_height())).convert()
