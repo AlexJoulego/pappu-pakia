@@ -145,7 +145,7 @@ while not done:
 			if event.key == K_UP:
 				if game_over:
 					game_over = False
-				ay = -0.4
+				ay = -v_vel
 				flying_up = True
 			if event.key == K_DOWN:
 				ay = 0.4
@@ -166,7 +166,7 @@ while not done:
 		
 		elif event.type == MOUSEBUTTONDOWN and start_btn_click == 1:
 			game_over = False
-			ay = -0.4
+			ay = -v_vel
 			flying_up = True			
 
 		if event.type == MOUSEBUTTONUP:

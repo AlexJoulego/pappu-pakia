@@ -43,7 +43,6 @@ def draw(canvas, count):
 				dig_rand = random.randint(3, 5)
 				fork.dig_x = dig_rect[2] / dig_rand
 				fork.dig_y = SCREEN_HEIGHT - dig_rect[3]
-				print(dig_rect[2], dig_rect[3])
 
 				fork.y = 200 + random.randint(0, 100)
 			if fork.edge == 'top':
