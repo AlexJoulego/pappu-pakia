@@ -145,17 +145,17 @@ while not done:
 		if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
 			terminate()
 		if event.type == KEYDOWN:
-			if event.key == K_LEFT:
-				ax = -0.1
-			if event.key == K_RIGHT:
-				ax = 0.1
+			# if event.key == K_LEFT:
+			# 	ax = -0.1
+			# if event.key == K_RIGHT:
+			# 	ax = 0.1
 			if event.key == K_UP:
 				if game_over:
 					game_over = False
 				ay = -0.4
 				flying_up = True
 			if event.key == K_DOWN:
-				ay = 0.1
+				ay = 0.4
 		if event.type == KEYUP:
 			ax = 0
 			ay = 0
@@ -276,7 +276,7 @@ while not done:
 	else:
 		pappu.drawStatic(screen)
 	# Draw forks
-	# forks.drawForks(screen, 6)
+	forks.drawForks(screen, 6)
 	# Draw branches
 	# branches.drawBranches(screen, 4)
 

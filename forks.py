@@ -40,17 +40,21 @@ def drawForks(canvas, count):
 
 			forks.append(fork)
 
-	index = 0
+	index = 0	
 	for fork in forks:
 		if fork.x < 0:
 			forks.pop(index)
 		fork.x -= 3
 		index += 1
 
-		line_start = [fork.x, fork.y]
-		if fork.edge == 'top':
-			line_end = [fork.x, 0]
+		# line_start = [fork.x, fork.y]
+		if fork.edge == 'top':						
+			fork_img = pygame.image.load('fork_handle.png').convert_alpha()
+			# line_end = [fork.x, 0]
+			canvas.blit(fork_img, (fork.x, 0))
 		elif fork.edge == 'bottom':
-			line_end = [fork.x, SCREEN_HEIGHT]
-		pygame.draw.line(canvas, fork.color, line_start, line_end, 5)
+			fork_img = pygame.image.load('fork_handle.png').convert_alpha()
+			# line_end = [fork.x, SCREEN_HEIGHT]
+			canvas.blit(fork_img, (fork.x, fork.y))
+		# pygame.draw.line(canvas, fork.color, line_start, line_end, 5)
 
