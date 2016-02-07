@@ -35,6 +35,9 @@ back_trees = pygame.image.load("back_trees.png").convert_alpha()
 front_trees = pygame.image.load("front_trees.png").convert_alpha()
 ground = pygame.image.load("ground.png").convert_alpha()
 grass = pygame.image.load("grass.png").convert_alpha()
+log = pygame.image.load("log.png").convert_alpha()
+log_x = 30
+print(log)
 
 cloud_bg_move_speed = 1
 cloud_bg_vx = 0
@@ -79,6 +82,7 @@ done = False
 clock = pygame.time.Clock()
 
 started = False
+first_start = True
 
 def pressed(mouse, rect):
 	if mouse[0] > rect[0]:
@@ -111,12 +115,22 @@ def intro():
 	screen.blit(stand, stand_pos)
 	screen.blit(plank, plank_pos)	
 
-	start_button = startFont.render("Start", 0, start_color)
+	if first_start:
+		start_text = "Start"
+	else:
+		start_text = "Restart"
+	start_button = startFont.render(start_text, 0, start_color)
 	start_pos = (SCREEN_WIDTH - 173, 160)
 	screen.blit(start_button, start_pos)
 	
 	screen.blit(controls, controls_pos)
+
+	pappu.x = 38
+	pappu.y = 284
 	
+	# log_x = 30
+	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
+
 
 def terminate():
 	pygame.quit()
@@ -147,8 +161,8 @@ while not done:
 		if event.type == MOUSEBUTTONDOWN:
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
-				started = True
-			
+				started = True				
+
 			ay = -0.4
 			flying_up = True
 		if event.type == MOUSEBUTTONUP:
@@ -163,21 +177,24 @@ while not done:
 			else:
 				start_color = START
 
+
 	# --- Game logic
 	# Game over on reaching any boundary
 	if pappu.hasReachedBoundary(SCREEN_WIDTH, SCREEN_HEIGHT):
 		# done = True
+		first_start = False
 		started = False
 
 	score += 1
 
-	# Velocity
-	if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
-		vy += ay
-		vy += gravity
+	if started:
+		# Velocity
+		if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
+			vy += ay
+			vy += gravity
 
-	pappu.x += vx
-	pappu.y += vy
+		pappu.x += vx
+		pappu.y += vy
 
 	# --- Screen-clearing code
 	screen.fill(WHITE)
@@ -240,13 +257,20 @@ while not done:
 
 	if flying_up:
 		pappu.flying_up = True
-	pappu.draw(screen)
+	if started:
+		pappu.draw(screen)
+	else:
+		pappu.drawStatic(screen)
 	# Draw forks
 	# forks.drawForks(screen, 6)
 	# Draw branches
 	# branches.drawBranches(screen, 4)
 
-	
+	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
+	if started:
+		log_x -= 2
+	else:
+		log_x = 30	
 	
 	# --- Update the screen
 	pygame.display.flip()

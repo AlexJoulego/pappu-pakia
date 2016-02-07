@@ -44,6 +44,9 @@ class Pappu(pygame.sprite.Sprite):
 			canvas.blit(self.sprite[0], (self.x, self.y))
 		self.flying_up = False
 
+	def drawStatic(self, canvas):
+		canvas.blit(self.sprite[0], (self.x, self.y))
+
 
 	def hasReachedBoundary(self, canvas_width, canvas_height):
 		ctop = (self.y < 0)
