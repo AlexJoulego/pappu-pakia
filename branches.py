@@ -9,10 +9,13 @@ class Branch(pygame.sprite.Sprite):
 		self.y = 0
 		self.escape_x = 0
 		self.escape_y = 0
+		self.col = 64
 
 branches = []
 branch_img = pygame.image.load('branch.png')
 branch_rect = branch_img.get_rect()
+
+branch_col = 64
 
 
 def getRandomBranchPos():
@@ -20,13 +23,15 @@ def getRandomBranchPos():
 
 	if len(branches) > 0 and branches[len(branches)-1] is not None:
 		pos['x'] = branches[len(branches)-1].x
-		pos['x'] += random.randint(100, 2000)
+		pos['x'] += random.randint(500, 2000)
 	else:
 		# first
-		pos['x'] = random.randint(500, 2500)
+		pos['x'] = random.randint(2000, 2500)
 	return pos
 
 def draw(canvas, count):
+	global branch_col
+
 	if len(branches) < count:
 		for i in range(count - len(branches)+1):
 			branch = Branch()
@@ -53,7 +58,11 @@ def draw(canvas, count):
 		
 		branch_img.convert_alpha()
 
-		hole_rect = (branch.escape_x, branch.escape_y, branch_rect[2], 150)
+		hole_rect = (branch.escape_x, branch.escape_y, branch_rect[2], 150)		
 		
 		canvas.blit(branch_img, (branch.x, branch.y))
-		canvas.fill(GRADIENT_MID, hole_rect)
+
+		if branch.col == 254:
+			branch.col = 64
+		canvas.fill((branch.col, 204, 244, 0), hole_rect)	
+		branch.col += 5

@@ -20,7 +20,7 @@ start_color = START
 
 GRADIENT_START = (6, 196, 244)
 GRADIENT_STOP = (123, 212, 246)
-GRADIENT_MID = (64, 204, 244)
+GRADIENT_MID = (64, 204, 244, 0)
 
 # Font
 font_path = "./fonts/happy_sans-webfont.ttf"

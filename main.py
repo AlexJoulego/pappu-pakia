@@ -9,7 +9,8 @@ pygame.init()
 
 # Set the width and height of the screen
 screen_size = (SCREEN_WIDTH, SCREEN_HEIGHT)
-screen = pygame.display.set_mode(screen_size)
+window = pygame.display.set_mode(screen_size)
+screen = pygame.display.get_surface()
 
 pygame.display.set_caption("Pappu Pakia")
 
@@ -165,9 +166,12 @@ while not done:
 			
 		
 		elif event.type == MOUSEBUTTONDOWN and start_btn_click == 1:
-			game_over = False
-			ay = -v_vel
-			flying_up = True			
+			if event.button == 1:
+				game_over = False
+				ay = -v_vel
+				flying_up = True
+			if event.button == 3:
+				ay = 0.4
 
 		if event.type == MOUSEBUTTONUP:
 			ax = 0
