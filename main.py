@@ -92,10 +92,7 @@ credits = creditsFont.render("by Kushagra and Rishabha", 0, CREDITS)
 credits_pos = (SCREEN_WIDTH // 3 - 70, 80)
 credits2 = credits2Font.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
 credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
-if first_start:
-		start_text = "Start"
-else:
-	start_text = "Restart"
+
 # start_button = startFont.render(start_text, 0, start_color)
 start_pos = (SCREEN_WIDTH - 173, 160)
 
@@ -116,6 +113,10 @@ def intro(fade=0):
 	blit_alpha(screen, dig, dig_pos, opacity)	
 	blit_alpha(screen, stand, stand_pos, opacity)	
 	blit_alpha(screen, plank, plank_pos, opacity)
+	if first_start:
+		start_text = "Start"
+	else:
+		start_text = "Restart"
 	
 	start_button = startFont.render(start_text, 0, start_color)
 	blit_alpha(screen, start_button, start_pos, opacity)
