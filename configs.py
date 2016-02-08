@@ -7,6 +7,7 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+TRANSPARENT = (255, 255, 255, 10)
 
 TITLE = (148, 84, 48)
 CREDITS = WHITE
@@ -19,6 +20,7 @@ start_color = START
 
 GRADIENT_START = (6, 196, 244)
 GRADIENT_STOP = (123, 212, 246)
+GRADIENT_MID = (64, 204, 244)
 
 # Font
 font_path = "./fonts/happy_sans-webfont.ttf"

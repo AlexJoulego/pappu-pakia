@@ -207,7 +207,8 @@ while not done:
 	screen.fill(WHITE)
 	
 	# --- Draw animated BACKGROUND
-	fill_gradient(screen, GRADIENT_START, GRADIENT_STOP)
+	background = fill_gradient(screen, GRADIENT_START, GRADIENT_STOP)	
+	# print(background)
 	# Clouds
 	if -cloud_bg_vx >= SCREEN_WIDTH:
 		cloud_bg_vx = 0
@@ -267,6 +268,12 @@ while not done:
 	screen.blit(score_text, score_pos)	
 	
 
+	if started and not game_over:
+		# Draw forks
+		forks.draw(screen, 6)
+		# Draw branches
+		branches.draw(screen, 4)
+
 	if flying_up:
 		pappu.flying_up = True
 	if started and not game_over:
@@ -274,11 +281,7 @@ while not done:
 	else:
 		pappu.drawStatic(screen)
 	
-	if started and not game_over:
-		# Draw forks
-		forks.draw(screen, 6)
-		# Draw branches
-		branches.draw(screen, 4)
+	
 
 	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
 	if started and not game_over:
@@ -292,7 +295,7 @@ while not done:
 
 	
 	# --- Update the screen
-	pygame.display.flip()
+	pygame.display.update()
 
 	# --- Limit to 80 frames per second
 	clock.tick(80)

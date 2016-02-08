@@ -14,8 +14,9 @@ dig_img = pygame.image.load('dig.png')
 dig_rect = dig_img.get_rect()
 
 
-class Fork(object):
+class Fork(pygame.sprite.Sprite):
 	def __init__(self):
+		super().__init__()
 		self.x = 0
 		self.y = 0
 		self.w = 0

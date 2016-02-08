@@ -1,23 +1,29 @@
 import pygame, random
+from utils import *
 from configs import *
 
-class Branch(object):
+class Branch(pygame.sprite.Sprite):
 	def __init__(self):
+		super().__init__()
 		self.x = 0
 		self.y = 0
+		self.escape_x = 0
+		self.escape_y = 0
 
 branches = []
 branch_img = pygame.image.load('branch.png')
+branch_rect = branch_img.get_rect()
+
 
 def getRandomBranchPos():
 	pos = {}
 
 	if len(branches) > 0 and branches[len(branches)-1] is not None:
 		pos['x'] = branches[len(branches)-1].x
-		pos['x'] += random.randint(500, 2000)
+		pos['x'] += random.randint(100, 2000)
 	else:
 		# first
-		pos['x'] = random.randint(2000, 2500)
+		pos['x'] = random.randint(500, 2500)
 	return pos
 
 def draw(canvas, count):
@@ -28,7 +34,11 @@ def draw(canvas, count):
 			pos = getRandomBranchPos()
 
 			branch.x = pos['x']
-			branch.y = 0			
+			branch.y = 0
+
+			# Escape positions
+			branch.escape_x = branch.x
+			branch.escape_y = branch.y + random.randint(0, branch_rect[3]-150)
 
 			branches.append(branch)
 
@@ -38,5 +48,12 @@ def draw(canvas, count):
 			branches.pop(index)
 		branch.x -= ground_bg_move_speed
 		index += 1
+
+		branch.escape_x = branch.x
+		
+		branch_img.convert_alpha()
+
+		hole_rect = (branch.escape_x, branch.escape_y, branch_rect[2], 150)
 		
 		canvas.blit(branch_img, (branch.x, branch.y))
+		canvas.fill(GRADIENT_MID, hole_rect)
