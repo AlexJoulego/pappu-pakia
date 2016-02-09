@@ -1,5 +1,5 @@
 import pygame
-import utils
+from utils import *
 from configs import *
 
 class Pappu(pygame.sprite.Sprite):
@@ -14,8 +14,7 @@ class Pappu(pygame.sprite.Sprite):
 		self.sprite = []
 		self.sprite_num = 288
 		self.sprite_w = 48
-		self.image = pygame.image.load("pappu.png").convert_alpha()
-		self.rect = self.image.get_rect()
+		self.image, self.rect = load_image("pappu.png")
 
 		self.fly_frame_count = 0
 		self.max_fly_frame_count = 6
@@ -57,3 +56,6 @@ class Pappu(pygame.sprite.Sprite):
 		if (ctop or cbtm or cleft or crgt):
 			return True
 		return False
+
+	def collided(self, target):
+		return self.rect.colliderect(target)

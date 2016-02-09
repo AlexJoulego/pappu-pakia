@@ -1,11 +1,12 @@
 import pygame, random
+from utils import *
 from configs import *
 
 forks = []
 edges = ['top', 'bottom']
 
-fork_img = pygame.image.load('fork_handle.png')
-fork_rect = fork_img.get_rect()
+# fork.image = pygame.image.load('fork_handle.png')
+# fork.rect = fork.image.get_rect()
 
 # Images
 fork_head_img = pygame.image.load('fork_head.png')
@@ -24,6 +25,8 @@ class Fork(pygame.sprite.Sprite):
 		self.dig_x = 0
 		self.dig_y = 0
 		self.edge = 'bottom'
+		self.image, self.rect = load_image('fork_handle.png')
+		
 
 def getRandomForkPos():
 	pos = {}
@@ -68,17 +71,17 @@ def draw(canvas, count):
 		index += 1	
 
 		
-		canvas.blit(fork_img, (fork.x, fork.y))
+		canvas.blit(fork.image, (fork.x, fork.y))
 
 		# Draw fork head
 		if fork.edge == 'top':
 			translate = (fork.x, fork.y + fork_head_rect[3])
 			fork_head_rotated = pygame.transform.rotate(fork_head_img, 180)			
-			translate = (fork.x, fork.y + fork_rect[3])
+			translate = (fork.x, fork.y + fork.rect[3])
 
 			canvas.blit(fork_head_rotated, translate)
 		if fork.edge == 'bottom':
 			canvas.blit(dig_img, (fork.x - fork.dig_x, fork.dig_y))
 			
 			translate = (fork.x - fork_head_rect[2]/5, fork.y - fork_head_rect[3])
-			canvas.blit(fork_head_img, translate)
+			canvas.blit(fork_head_img, translate)	

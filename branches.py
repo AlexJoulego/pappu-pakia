@@ -10,12 +10,13 @@ class Branch(pygame.sprite.Sprite):
 		self.escape_x = 0
 		self.escape_y = 0
 		self.col = 64
+		self.image, self.rect = load_image('branch.png')
 
 branches = []
-branch_img = pygame.image.load('branch.png')
-branch_rect = branch_img.get_rect()
+# branch_img = pygame.image.load('branch.png')
+# branch.rect = branch_img.get_rect()
 
-branch_col = 64
+# branch_col = 64
 
 
 def getRandomBranchPos():
@@ -30,8 +31,6 @@ def getRandomBranchPos():
 	return pos
 
 def draw(canvas, count):
-	global branch_col
-
 	if len(branches) < count:
 		for i in range(count - len(branches)+1):
 			branch = Branch()
@@ -43,9 +42,10 @@ def draw(canvas, count):
 
 			# Escape positions
 			branch.escape_x = branch.x
-			branch.escape_y = branch.y + random.randint(0, branch_rect[3]-150)
+			branch.escape_y = branch.y + random.randint(0, branch.rect[3]-150)
 
 			branches.append(branch)
+			print(branch.rect)
 
 	index = 0
 	for branch in branches:
@@ -54,13 +54,11 @@ def draw(canvas, count):
 		branch.x -= ground_bg_move_speed
 		index += 1
 
-		branch.escape_x = branch.x
-		
-		branch_img.convert_alpha()
+		branch.escape_x = branch.x		
 
-		hole_rect = (branch.escape_x, branch.escape_y, branch_rect[2], 150)		
+		hole_rect = (branch.escape_x, branch.escape_y, branch.rect[2], 150)		
 		
-		canvas.blit(branch_img, (branch.x, branch.y))
+		canvas.blit(branch.image, (branch.x, branch.y))
 
 		if branch.col == 254:
 			branch.col = 64

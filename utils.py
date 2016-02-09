@@ -1,5 +1,27 @@
 import pygame
 
+def load_image(name):
+	try:
+		image = pygame.image.load(name)
+	except pygame.error as message:
+		print('Cannot load image:', name)
+		raise SystemExit(message)
+	image = image.convert_alpha()
+	return image, image.get_rect()
+
+def load_sound(name):
+	class NoneSound:
+		def play(self):
+			pass
+	if not pygame.mixer:
+		return NoneSound()
+	try:
+		sound = pygame.mixer.Sound(name)
+	except pygame.error as message:
+		print('Cannot load sound:', name)
+		raise SystemExit(message)
+	return sound
+
 def fill_gradient(surface, color, gradient, rect=None, vertical=True, forward=True):
 	''' Fill a surface with a gradient pattern
 	color -> starting color

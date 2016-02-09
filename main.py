@@ -29,22 +29,20 @@ ay = 0
 # flying up?
 flying_up = False
 
-clouds = pygame.image.load("clouds.png").convert_alpha()
-back_trees = pygame.image.load("back_trees.png").convert_alpha()
-front_trees = pygame.image.load("front_trees.png").convert_alpha()
-ground = pygame.image.load("ground.png").convert_alpha()
-grass = pygame.image.load("grass.png").convert_alpha()
-log = pygame.image.load("log.png").convert_alpha()
+clouds, clouds_rect = load_image("clouds.png")
+back_trees, back_trees_rect = load_image("back_trees.png")
+front_trees, front_trees_rect = load_image("front_trees.png")
+ground, ground_rect = load_image("ground.png")
+grass, grass_rect = load_image("grass.png")
+log, log_rect = load_image("log.png")
 log_x = 30
-dig = pygame.image.load("dig.png").convert_alpha()
+dig, dig_rect = load_image("dig.png")
 
 
-
-stand = pygame.image.load("stand.png").convert_alpha()
-stand_rect = stand.get_rect()
+stand, stand_rect = load_image("stand.png")
 stand_pos = (SCREEN_WIDTH - 150, 85)
 
-plank = pygame.image.load("plank_top.png").convert_alpha()
+plank, plank_rect = load_image("plank_top.png")
 plank_pos = (SCREEN_WIDTH - 220, 150)
 plank_x, plank_y = plank_pos
 plank_btm = (plank_x + 160, plank_y + 150)
@@ -52,7 +50,7 @@ plank_rect = (plank_x, plank_y, plank_btm[0], plank_btm[1])
 
 dig_pos = (SCREEN_WIDTH - 150, 450)
 
-controls = pygame.image.load("controls.png").convert_alpha()
+controls, controls_rect = load_image("controls.png")
 controls_pos = (SCREEN_WIDTH * 0.2, SCREEN_HEIGHT * 0.6)
 
 # Font
