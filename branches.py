@@ -45,7 +45,6 @@ def draw(canvas, count):
 			branch.escape_y = branch.y + random.randint(0, branch.rect[3]-150)
 
 			branches.append(branch)
-			print(branch.rect)
 
 	index = 0
 	for branch in branches:

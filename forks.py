@@ -26,6 +26,20 @@ class Fork(pygame.sprite.Sprite):
 		self.dig_y = 0
 		self.edge = 'bottom'
 		self.image, self.rect = load_image('fork_handle.png')
+
+	def getHandleBounds(self):
+		bounds = {
+			'start_x': self.x,
+			'start_y': self.y,
+			'end_x': self.x + self.w,
+			'end_y': self.y + self.h
+		}		
+
+		return bounds
+
+	def getHeadBounds(self):
+		bounds = {}
+		return bounds
 		
 
 def getRandomForkPos():
@@ -61,6 +75,9 @@ def draw(canvas, count):
 			pos = getRandomForkPos()
 			fork.x = pos['x']
 
+			fork.w = fork.rect.width
+			fork.h = fork.rect.height
+
 			forks.append(fork)
 
 	index = 0	
@@ -72,10 +89,12 @@ def draw(canvas, count):
 
 		
 		canvas.blit(fork.image, (fork.x, fork.y))
+		# pygame.draw.rect(canvas, WHITE, (fork.x, fork.y, fork.w, fork.y))
 
 		# Draw fork head
 		if fork.edge == 'top':
 			translate = (fork.x, fork.y + fork_head_rect[3])
+			# translate = (fork.x - fork_head_rect[2]/8, fork.y + fork.rect[3])
 			fork_head_rotated = pygame.transform.rotate(fork_head_img, 180)			
 			translate = (fork.x, fork.y + fork.rect[3])
 
@@ -84,4 +103,21 @@ def draw(canvas, count):
 			canvas.blit(dig_img, (fork.x - fork.dig_x, fork.dig_y))
 			
 			translate = (fork.x - fork_head_rect[2]/5, fork.y - fork_head_rect[3])
-			canvas.blit(fork_head_img, translate)	
+			canvas.blit(fork_head_img, translate)
+
+def checkCollision(sprite):
+	# Get pappu's bounds
+	pappu_bounds = sprite.getBounds()
+
+	# Get nearest fork handle's bounds
+	fork_bounds = forks[0].getHandleBounds()
+	# print(pappu_bounds, fork_bounds)
+	# print(pappu_bounds['start_x'])
+
+	# Check whether pappu collided with the fork
+	if pappu_bounds['end_x'] > fork_bounds['start_x'] and \
+		pappu_bounds['end_x'] < fork_bounds['end_x'] and \
+		pappu_bounds['start_y'] > fork_bounds['start_y'] and \
+		pappu_bounds['end_y'] < fork_bounds['end_y']:
+		return True
+	return False

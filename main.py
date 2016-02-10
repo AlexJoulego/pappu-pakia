@@ -14,6 +14,8 @@ screen = pygame.display.get_surface()
 
 pygame.display.set_caption("Pappu Pakia")
 
+bg = pygame.Surface(screen.get_size()).convert()
+
 # Data structures and globals
 
 
@@ -81,8 +83,11 @@ start_btn_click = 0
 
 pappu = Pappu()
 if not started:
-	pappu.x = 38
+	pappu.x = 35
 	pappu.y = 284
+	# pappu.w = 48
+	# pappu.h = pappu.rect.width
+
 
 title = fontObj.render("Pappu Pakia", 0, TITLE)
 title_pos = (SCREEN_WIDTH // 3 - 30, 20)
@@ -276,6 +281,14 @@ while not done:
 		forks.draw(screen, 6)
 		# Draw branches
 		branches.draw(screen, 4)
+		# Check collisions with pappu
+		if forks.checkCollision(pappu):
+			first_start = False
+			started = False
+			game_over = True
+			start_btn_click = 0
+			pappu.x = 35
+			pappu.y = 284
 
 	if flying_up:
 		pappu.flying_up = True
@@ -300,5 +313,5 @@ while not done:
 	# --- Update the screen
 	pygame.display.update()
 
-	# --- Limit to 80 frames per second
-	clock.tick(80)
+	# --- Limit to 120 frames per second
+	clock.tick(120)

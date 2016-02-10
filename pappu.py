@@ -38,9 +38,11 @@ class Pappu(pygame.sprite.Sprite):
 			if self.fly_frame_count == self.max_fly_frame_count:
 				self.fly_frame_count = 0
 			canvas.blit(self.sprite[self.fly_frame_count], (self.x, self.y))
+			# pygame.draw.rect(canvas, BLUE, (self.x, self.y, self.w, self.h))
 			# print(self.fly_frame_count)
 		else:
 			canvas.blit(self.sprite[0], (self.x, self.y))
+			# pygame.draw.rect(canvas, BLUE, (self.x, self.y, self.w, self.h))
 		self.flying_up = False
 
 	def drawStatic(self, canvas):
@@ -57,5 +59,12 @@ class Pappu(pygame.sprite.Sprite):
 			return True
 		return False
 
-	def collided(self, target):
-		return self.rect.colliderect(target)
+	def getBounds(self):
+		bounds = {
+			'start_x': self.x,
+			'start_y': self.y,
+			'end_x': self.x + self.w,
+			'end_y': self.y + self.h
+		}		
+
+		return bounds
