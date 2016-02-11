@@ -129,19 +129,19 @@ def draw(canvas, count):
 
 def checkCollision(sprite):	
 	# Get pappu's bounds
-	pappu_bounds = sprite.getBounds()
+	sprite_bounds = sprite.getBounds()
 
 	# Get nearest fork handle's bounds
 	fork_bounds = forks[0].getHandleBounds()
-	# print(pappu_bounds, fork_bounds)
-	# print(pappu_bounds['start_x'])
+	# print(sprite_bounds, fork_bounds)
+	# print(sprite_bounds['start_x'])
 
 	# Check whether pappu collided with the fork
-	# if pappu_bounds['end_x'] > fork_bounds['start_x'] and \
-	# 	pappu_bounds['end_x'] < fork_bounds['end_x'] and \
-	# 	pappu_bounds['start_y'] > fork_bounds['start_y'] and \
-	# 	pappu_bounds['end_y'] < fork_bounds['end_y']:
+	# if sprite_bounds['end_x'] > fork_bounds['start_x'] and \
+	# 	sprite_bounds['end_x'] < fork_bounds['end_x'] and \
+	# 	sprite_bounds['start_y'] > fork_bounds['start_y'] and \
+	# 	sprite_bounds['end_y'] < fork_bounds['end_y']:
 	# 	return True
-	if intersect(pappu_bounds, fork_bounds):
+	if intersect(sprite_bounds, fork_bounds):
 		return True
 	return False

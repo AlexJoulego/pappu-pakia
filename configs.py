@@ -54,5 +54,3 @@ ground_bg_move_speed = 5
 ground_bg_vx = 0
 grass_bg_move_speed = 5
 grass_bg_vs = 0
-
-restart = False

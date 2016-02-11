@@ -191,7 +191,6 @@ while not done:
 		start_btn_click = 0
 		pappu.x = 38
 		pappu.y = 284
-		restart = True
 	
 	if started and not game_over:
 		# game_over = False
@@ -273,7 +272,6 @@ while not done:
 		forks.draw(screen, 6)
 		# Draw branches
 		branches.draw(screen, 4)
-		restart = False
 		# Check collisions with pappu
 		if forks.checkCollision(pappu):
 			first_start = False
@@ -282,8 +280,14 @@ while not done:
 			start_btn_click = 0
 			pappu.x = 35
 			pappu.y = 284
-			restart = True
-
+		if branches.checkCollision(pappu):
+			first_start = False
+			started = False
+			game_over = True
+			start_btn_click = 0
+			pappu.x = 35
+			pappu.y = 284
+			
 	if flying_up:
 		pappu.flying_up = True
 	if started and not game_over:
