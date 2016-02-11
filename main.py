@@ -19,15 +19,6 @@ bg = pygame.Surface(screen.get_size()).convert()
 # Data structures and globals
 
 
-# velocity
-vx = 0
-vy = 0
-v_cap = 4
-
-# acceleration
-ax = 0
-ay = 0
-
 # flying up?
 flying_up = False
 
@@ -200,6 +191,7 @@ while not done:
 		start_btn_click = 0
 		pappu.x = 38
 		pappu.y = 284
+		restart = True
 	
 	if started and not game_over:
 		# game_over = False
@@ -273,14 +265,15 @@ while not done:
 	
 
 	score_text = scoreFont.render(str(int(score)), 0, SCORE)
-	screen.blit(score_text, score_pos)	
-	
+	screen.blit(score_text, score_pos)
+
 
 	if started and not game_over:
 		# Draw forks
 		forks.draw(screen, 6)
 		# Draw branches
 		branches.draw(screen, 4)
+		restart = False
 		# Check collisions with pappu
 		if forks.checkCollision(pappu):
 			first_start = False
@@ -289,6 +282,7 @@ while not done:
 			start_btn_click = 0
 			pappu.x = 35
 			pappu.y = 284
+			restart = True
 
 	if flying_up:
 		pappu.flying_up = True

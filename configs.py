@@ -31,8 +31,18 @@ score_size = 30
 start_size = 40
 
 fork_count = 6
-gravity = 0.2
-v_vel = 1.2
+
+# velocity
+vx = 0
+vy = 0
+
+# acceleration
+ax = 0
+ay = 0
+
+gravity = 0.5
+v_cap = 7
+v_vel = 1.0
 
 cloud_bg_move_speed = 2
 cloud_bg_vx = 0
@@ -44,3 +54,5 @@ ground_bg_move_speed = 5
 ground_bg_vx = 0
 grass_bg_move_speed = 5
 grass_bg_vs = 0
+
+restart = False

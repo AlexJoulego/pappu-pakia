@@ -94,3 +94,8 @@ def pressed(mouse, rect):
 	else:
 		return False
 
+def intersect(bounds1, bounds2):
+	return not (bounds1['end_x'] < bounds2['start_x'] or
+		bounds2['end_x'] < bounds1['start_x'] or
+		bounds1['end_y'] < bounds2['start_y'] or
+		bounds2['end_y'] < bounds1['start_y'])
