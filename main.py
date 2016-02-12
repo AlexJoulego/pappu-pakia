@@ -1,5 +1,5 @@
 import pygame, sys
-import forks, branches, utils
+import forks, branches, pakia
 from pygame.locals import *
 from pappu import Pappu
 from configs import *
@@ -183,7 +183,7 @@ while not done:
 
 	# --- Game logic
 	# Game over on reaching any boundary
-	if pappu.hasReachedBoundary(SCREEN_WIDTH, SCREEN_HEIGHT):
+	if pappu.hasReachedBoundary(screen):
 		# done = True
 		first_start = False
 		started = False
@@ -266,6 +266,9 @@ while not done:
 	score_text = scoreFont.render(str(int(score)), 0, SCORE)
 	screen.blit(score_text, score_pos)
 
+	pakia.reflow(screen)
+	pakia.repaint(screen)
+
 
 	if started and not game_over:
 		# Draw forks
@@ -287,6 +290,10 @@ while not done:
 			start_btn_click = 0
 			pappu.x = 35
 			pappu.y = 284
+
+		# Send over pakias
+		pakia.reflow(screen)
+		pakia.repaint(screen)
 			
 	if flying_up:
 		pappu.flying_up = True

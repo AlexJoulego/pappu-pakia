@@ -49,11 +49,11 @@ class Pappu(pygame.sprite.Sprite):
 		canvas.blit(self.sprite[0], (self.x, self.y))
 
 
-	def hasReachedBoundary(self, canvas_width, canvas_height):
+	def hasReachedBoundary(self, canvas):
 		ctop = (self.y < 0)
-		cbtm = (self.y > canvas_height)
+		cbtm = (self.y > canvas.get_rect().height)
 		cleft = (self.x < 0)
-		crgt = (self.x > canvas_width)
+		crgt = (self.x > canvas.get_rect().width)
 
 		if (ctop or cbtm or cleft or crgt):
 			return True
