@@ -26,11 +26,9 @@ class Pappu(pygame.sprite.Sprite):
 		self.change_per_frame = 1
 		self.rotate_angle = 0
 
-		# for frame in range(0, self.sprite_num, self.sprite_w):
-		# 	shift = (self.rect.left + frame, self.rect.top, self.rect.width // 6, self.rect.height)
-		# 	for i in range(self.change_per_frame):
-		# 		self.sprite.append(self.image.subsurface(shift))
-		# self.max_fly_frame_count = len(self.sprite)
+		self.sound = load_sound('flap.ogg')
+		self.sound.set_volume(0.2)
+		
 
 		for frame in range(0, self.sprite_num, self.sprite_h):
 			shift = (self.rect.left, self.rect.top + frame, self.rect.width, self.sprite_h)
@@ -44,6 +42,8 @@ class Pappu(pygame.sprite.Sprite):
 		# print(self.flying_up)
 		rotated = pygame.transform.rotate(self.sprite[self.fly_frame_count], self.rotate_angle)
 		if self.flying_up:
+			self.sound.play()
+
 			if self.rotate_angle > -15:
 				self.rotate_angle -= 1.6			
 			self.fly_frame_count += 1
