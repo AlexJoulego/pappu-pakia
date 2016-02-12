@@ -265,7 +265,7 @@ while not done:
 	score_text = scoreFont.render(str(int(score)), 0, SCORE)
 	screen.blit(score_text, score_pos)
 
-	pakia.render(screen)
+	pakia.render(screen, score)
 
 
 	if started and not game_over:
@@ -290,7 +290,7 @@ while not done:
 			pappu.y = 284
 
 		# Send over pakias
-		pakia.render(screen)
+		pakia.render(screen, score)
 			
 	if flying_up:
 		pappu.flying_up = True

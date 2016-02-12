@@ -75,9 +75,9 @@ def repaint(canvas):
 	if cur_pakia:
 		cur_pakia.draw(canvas)
 
-def render(canvas):
+def render(canvas, score=score):
 	if len(pakias) == 0:
 		createPakias(canvas)
-	if round(score, 2) % 10 == 0 or cur_pakia:
+	if round(score, 2) % 50 == 0 or cur_pakia:
 		reflow(canvas)
 		repaint(canvas)
