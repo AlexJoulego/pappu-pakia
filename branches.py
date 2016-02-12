@@ -48,9 +48,10 @@ def getRandomBranchPos():
 	else:
 		# first
 		pos['x'] = random.randint(2000, 2500)
+
 	return pos
 
-def draw(canvas, count):
+def draw(canvas, count=branches_cnt):
 	if len(branches) < count:
 		for i in range(count - len(branches)+1):
 			branch = Branch()
@@ -72,6 +73,7 @@ def draw(canvas, count):
 			branch.escape_h = 150
 
 			branches.append(branch)
+			branches_lst.append(branch)
 
 	index = 0
 	for branch in branches:

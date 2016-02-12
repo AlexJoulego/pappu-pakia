@@ -263,32 +263,32 @@ while not done:
 	score_text = scoreFont.render(str(int(score)), 0, SCORE)
 	screen.blit(score_text, score_pos)
 
-	# forks_text = scoreFont.render(str(len(branches.branches)), 0, SCORE)
-	# screen.blit(forks_text, (0,0))
-	# branches_text = scoreFont.render(str(len(forks.forks)), 0, SCORE)
-	# screen.blit(branches_text, (0, 50))
+	forks_text = scoreFont.render(str(len(branches.branches)), 0, SCORE)
+	screen.blit(forks_text, (0,0))
+	branches_text = scoreFont.render(str(len(forks.forks)), 0, SCORE)
+	screen.blit(branches_text, (0, 50))
 
 
 	if started and not game_over:
 		# Draw forks
 		forks.draw(screen)
 		# Draw branches
-		branches.draw(screen, branches_cnt)
+		branches.draw(screen)
 		# Check collisions with pappu
-		if forks.checkCollision(pappu):
-			first_start = False
-			started = False
-			game_over = True
-			start_btn_click = 0
-			pappu.x = 35
-			pappu.y = 284
-		if branches.checkCollision(pappu):
-			first_start = False
-			started = False
-			game_over = True
-			start_btn_click = 0
-			pappu.x = 35
-			pappu.y = 284
+		# if forks.checkCollision(pappu):
+		# 	first_start = False
+		# 	started = False
+		# 	game_over = True
+		# 	start_btn_click = 0
+		# 	pappu.x = 35
+		# 	pappu.y = 284
+		# if branches.checkCollision(pappu):
+		# 	first_start = False
+		# 	started = False
+		# 	game_over = True
+		# 	start_btn_click = 0
+		# 	pappu.x = 35
+		# 	pappu.y = 284
 
 		# Send over pakias
 		if score > 199:

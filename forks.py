@@ -4,7 +4,6 @@ from configs import *
 
 forks = []
 edges = ['top', 'bottom']
-count = forks_cnt
 
 class Fork(pygame.sprite.Sprite):
 	def __init__(self):
@@ -44,17 +43,26 @@ class Fork(pygame.sprite.Sprite):
 		return bounds
 		
 
-def getRandomForkPos():
+def getRandomForkPos(canvas):
+	global branches
 	pos = {}
 
 	if len(forks) > 0 and forks[len(forks)-1] is not None:
 		pos['x'] = forks[len(forks)-1].x
-		pos['x'] += 300	
+		pos['x'] += random.randint(300, 600)
+		
 	else:
-		pos['x'] = 800
+		pos['x'] = canvas.get_rect().width/1000 * 800
+
+	for branch in branches_lst:
+		if abs(pos['x'] - branch.x) < 300:
+			print('check!')
+			pos['x'] = branch.x + 300
+	
 	return pos
 
-def draw(canvas, count=count):
+
+def draw(canvas, count=forks_cnt):
 	if len(forks) < count:
 		for i in range(count - len(forks)+1):
 			fork = Fork()			
@@ -74,7 +82,7 @@ def draw(canvas, count=count):
 				fork.y = 0 - random.randint(0, 100)
 				fork.y -= fork.head_rect[3]
 
-			pos = getRandomForkPos()
+			pos = getRandomForkPos(canvas)
 			fork.x = pos['x']
 
 			fork.w = fork.rect.width
