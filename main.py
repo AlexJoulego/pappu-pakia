@@ -66,10 +66,7 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
-started = False
-first_start = True
-game_over = True
-start_btn_click = 0
+
 
 pappu = Pappu()
 if not started:
@@ -91,8 +88,7 @@ start_pos = (SCREEN_WIDTH - 173, 160)
 
 
 def intro(fade=0):
-	global opacity
-
+	global opacity	
 
 	if fade == 1:
 		opacity -= 10		
@@ -151,6 +147,8 @@ while not done:
 
 		# Game play on mouse clicks, too!
 		if event.type == MOUSEBUTTONDOWN and start_btn_click == 0:
+			forks.forks = []
+			branches.branches = []
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
 				started = True
@@ -265,11 +263,17 @@ while not done:
 	score_text = scoreFont.render(str(int(score)), 0, SCORE)
 	screen.blit(score_text, score_pos)
 
+	# forks_text = scoreFont.render(str(len(branches.branches)), 0, SCORE)
+	# screen.blit(forks_text, (0,0))
+	# branches_text = scoreFont.render(str(len(forks.forks)), 0, SCORE)
+	# screen.blit(branches_text, (0, 50))
+
+
 	if started and not game_over:
 		# Draw forks
-		forks.draw(screen, 6)
+		forks.draw(screen)
 		# Draw branches
-		branches.draw(screen, 4)
+		branches.draw(screen, branches_cnt)
 		# Check collisions with pappu
 		if forks.checkCollision(pappu):
 			first_start = False

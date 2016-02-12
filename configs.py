@@ -52,7 +52,15 @@ backtree_bg_move_speed = 3
 backtree_bg_vx = 0
 fronttree_bg_move_speed = 4
 fronttree_bg_vx = 0
-ground_bg_move_speed = 5
+ground_bg_move_speed = 6
 ground_bg_vx = 0
-grass_bg_move_speed = 5
+grass_bg_move_speed = 6
 grass_bg_vs = 0
+
+started = False
+first_start = True
+game_over = True
+start_btn_click = 0
+
+forks_cnt = 6
+branches_cnt = 4

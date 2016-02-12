@@ -37,10 +37,6 @@ class Branch(pygame.sprite.Sprite):
 		return bounds
 
 branches = []
-# branch_img = pygame.image.load('branch.png')
-# branch.rect = branch_img.get_rect()
-
-# branch_col = 64
 
 
 def getRandomBranchPos():

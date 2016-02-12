@@ -4,13 +4,7 @@ from configs import *
 
 forks = []
 edges = ['top', 'bottom']
-
-# Images
-fork_head_img = pygame.image.load('fork_head.png')
-fork_head_rect = fork_head_img.get_rect()
-dig_img = pygame.image.load('dig.png')
-dig_rect = dig_img.get_rect()
-
+count = forks_cnt
 
 class Fork(pygame.sprite.Sprite):
 	def __init__(self):
@@ -27,6 +21,8 @@ class Fork(pygame.sprite.Sprite):
 		self.dig_y = 0
 		self.edge = 'bottom'
 		self.image, self.rect = load_image('fork_handle.png')
+		self.head_image, self.head_rect = load_image('fork_head.png')
+		self.dig_image, self.dig_rect = load_image('dig.png')
 
 	def getHandleBounds(self):
 		bounds = {
@@ -55,10 +51,10 @@ def getRandomForkPos():
 		pos['x'] = forks[len(forks)-1].x
 		pos['x'] += 300	
 	else:
-		pos['x'] = 200
+		pos['x'] = 800
 	return pos
 
-def draw(canvas, count):
+def draw(canvas, count=count):
 	if len(forks) < count:
 		for i in range(count - len(forks)+1):
 			fork = Fork()			
@@ -69,14 +65,14 @@ def draw(canvas, count):
 			# Setting the dig position
 			if fork.edge == 'bottom':
 				dig_rand = random.randint(3, 5)
-				fork.dig_x = dig_rect[2] / dig_rand
-				fork.dig_y = SCREEN_HEIGHT - dig_rect[3]
+				fork.dig_x = fork.dig_rect[2] / dig_rand
+				fork.dig_y = SCREEN_HEIGHT - fork.dig_rect[3]
 
 				fork.y = 200 + random.randint(0, 100)
-				fork.y += fork_head_rect[3]
+				fork.y += fork.head_rect[3]
 			if fork.edge == 'top':
 				fork.y = 0 - random.randint(0, 100)
-				fork.y -= fork_head_rect[3]
+				fork.y -= fork.head_rect[3]
 
 			pos = getRandomForkPos()
 			fork.x = pos['x']
@@ -95,33 +91,32 @@ def draw(canvas, count):
 
 		
 		canvas.blit(fork.image, (fork.x, fork.y))
-		# pygame.draw.rect(canvas, WHITE, (fork.x, fork.y, fork.w, fork.y))
 
 		# Draw fork head
 		if fork.edge == 'top':
-			fork.head_x = fork.x - fork_head_rect.width/8
+			fork.head_x = fork.x - fork.head_rect.width/8
 			fork.head_y = fork.y + fork.rect.height
 
-			fork.head_w = fork_head_rect.width
-			fork.head_h = fork_head_rect.height
+			fork.head_w = fork.head_rect.width
+			fork.head_h = fork.head_rect.height
 
-			translate = (fork.x, fork.y + fork_head_rect[3])
-			# translate = (fork.x - fork_head_rect[2]/8, fork.y + fork.rect[3])
-			fork_head_rotated = pygame.transform.rotate(fork_head_img, 180)			
+			translate = (fork.x, fork.y + fork.head_rect[3])
+			# translate = (fork.x - fork.head_rect[2]/8, fork.y + fork.rect[3])
+			fork_head_rotated = pygame.transform.rotate(fork.head_image, 180)			
 			translate = (fork.head_x, fork.head_y)
 
 			canvas.blit(fork_head_rotated, translate)
-			# pygame.draw.rect(canvas, GREEN, (fork_head_rect.x, fork_head_rect.y, fork_head_rect.w, fork_head_rect.w))
+			# pygame.draw.rect(canvas, GREEN, (fork.head_rect.x, fork.head_rect.y, fork.head_rect.w, fork.head_rect.w))
 		if fork.edge == 'bottom':
-			fork.head_x = fork.x - fork_head_rect.width/8
+			fork.head_x = fork.x - fork.head_rect.width/8
 			fork.head_y = fork.y + fork.rect.height
 
-			fork.head_w = fork_head_rect.width
-			fork.head_h = fork_head_rect.height
-			canvas.blit(dig_img, (fork.x - fork.dig_x, fork.dig_y))
+			fork.head_w = fork.head_rect.width
+			fork.head_h = fork.head_rect.height
+			canvas.blit(fork.dig_image, (fork.x - fork.dig_x, fork.dig_y))
 			
-			translate = (fork.x - fork_head_rect[2]/5, fork.y - fork_head_rect[3])
-			canvas.blit(fork_head_img, translate)
+			translate = (fork.x - fork.head_rect[2]/5, fork.y - fork.head_rect[3])
+			canvas.blit(fork.head_image, translate)
 
 def checkCollision(sprite):	
 	# Get pappu's bounds
@@ -129,15 +124,7 @@ def checkCollision(sprite):
 
 	# Get nearest fork handle's bounds
 	fork_bounds = forks[0].getHandleBounds()
-	# print(sprite_bounds, fork_bounds)
-	# print(sprite_bounds['start_x'])
-
-	# Check whether pappu collided with the fork
-	# if sprite_bounds['end_x'] > fork_bounds['start_x'] and \
-	# 	sprite_bounds['end_x'] < fork_bounds['end_x'] and \
-	# 	sprite_bounds['start_y'] > fork_bounds['start_y'] and \
-	# 	sprite_bounds['end_y'] < fork_bounds['end_y']:
-	# 	return True
+	
 	if intersect(sprite_bounds, fork_bounds):
 		return True
 	return False
