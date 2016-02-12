@@ -115,3 +115,8 @@ def checkCollision(sprite):
 		if not intersect(sprite_bounds, escape_bounds):
 			return True
 	return False
+
+def resetBranches():
+	global branches
+	branches = []
+	print('branches reset')

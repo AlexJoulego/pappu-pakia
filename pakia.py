@@ -42,8 +42,18 @@ class Pakia(pygame.sprite.Sprite):
 		self.y = canvas.get_rect().height
 
 	def generateRandomVelocity(self):
-		self.vx = -15
-		self.vy = random.randint(-25, -16)
+		self.vx = -10
+		self.vy = random.randint(-30, -20)
+
+	def getBounds(self):
+		bounds = {
+			'start_x': self.x,
+			'start_y': self.y,
+			'end_x': self.x + self.w,
+			'end_y': self.y + self.h
+		}
+
+		return bounds
 
 def createPakias(canvas):
 	for emo in ['sad', 'happy', 'angry']:
@@ -55,6 +65,7 @@ def createPakias(canvas):
 		pakia.generateRandomVelocity()
 		pakia.type = emo
 		pakias.append(pakia)
+		pakias_lst.append(pakia)
 
 def reflow(canvas):
 	global cur_pakia
@@ -78,6 +89,21 @@ def repaint(canvas):
 def render(canvas, score=score):
 	if len(pakias) == 0:
 		createPakias(canvas)
-	if round(score, 2) % 10 == 0 or cur_pakia:
+	if round(score, 2) % 50 == 0 or cur_pakia:
 		reflow(canvas)
 		repaint(canvas)
+
+def checkCollision(sprite):
+	if cur_pakia:
+		sprite_bounds = sprite.getBounds()
+		pakia_bounds = cur_pakia.getBounds()
+
+		if intersect(sprite_bounds, pakia_bounds):
+			return True
+	return False
+
+def resetPakias():
+	global pakias, cur_pakia
+	pakias = []
+	cur_pakia = False
+	print('pakias reset')

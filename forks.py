@@ -137,3 +137,8 @@ def checkCollision(sprite):
 	if intersect(sprite_bounds, fork_bounds) or intersect(sprite_bounds, fork_head_bounds):
 		return True
 	return False
+
+def resetForks():
+	global forks
+	forks = []
+	print('forks reset')

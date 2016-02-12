@@ -147,8 +147,11 @@ while not done:
 
 		# Game play on mouse clicks, too!
 		if event.type == MOUSEBUTTONDOWN and start_btn_click == 0:
-			forks.forks = []
-			branches.branches = []
+			# forks.forks = []
+			# branches.branches = []
+			forks.resetForks()
+			branches.resetBranches()
+			pakia.resetPakias()
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
 				started = True
@@ -280,20 +283,27 @@ while not done:
 			started = False
 			game_over = True
 			start_btn_click = 0
-			pappu.x = 35
+			pappu.x = 33
 			pappu.y = 284
 		if branches.checkCollision(pappu):
 			first_start = False
 			started = False
 			game_over = True
 			start_btn_click = 0
-			pappu.x = 35
+			pappu.x = 33
 			pappu.y = 284
 
 		# Send over pakias
-		if score > 99:
+		if score > 199:
 			pakia.render(screen, score)
-			
+		if pakia.checkCollision(pappu):
+			first_start = False
+			started = False
+			game_over = True
+			start_btn_click = 0
+			pappu.x = 33
+			pappu.y = 284
+
 	if flying_up:
 		pappu.flying_up = True
 	if started and not game_over:
