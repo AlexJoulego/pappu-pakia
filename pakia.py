@@ -12,15 +12,15 @@ class Pakia(pygame.sprite.Sprite):
 		self.types = ['sad', 'happy', 'angry']
 
 		self.img = {
-			'sad': load_image('sad_pakiya.png')[0],
-			'happy': load_image('happy_pakiya.png')[0],
-			'angry': load_image('angry_pakiya.png')[0]
+			'sad': load_image('sad_pakia.png')[0],
+			'happy': load_image('happy_pakia.png')[0],
+			'angry': load_image('angry_pakia.png')[0]
 		}
 
 		self.rect = {
-			'sad': load_image('sad_pakiya.png')[1],
-			'happy': load_image('happy_pakiya.png')[1],
-			'angry': load_image('angry_pakiya.png')[1]
+			'sad': load_image('sad_pakia.png')[1],
+			'happy': load_image('happy_pakia.png')[1],
+			'angry': load_image('angry_pakia.png')[1]
 		}
 
 		self.type = 'angry'

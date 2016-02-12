@@ -6,25 +6,33 @@ class Pappu(pygame.sprite.Sprite):
 	def __init__(self):
 		super().__init__()
 
-		self.x = 50
-		self.y = 10
-		self.w = 50
-		self.h = 50
-
-		self.sprite = []
-		self.sprite_num = 288
-		self.sprite_w = 48
 		self.image, self.rect = load_image("pappu.png")
 
+		self.x = 50
+		self.y = 10
+		self.w = self.rect.width
+		self.h = self.rect.height // 8
+
+		self.sprite = []
+		self.sprite_num = self.rect.height
+		self.sprite_h = self.rect.height // 8
+		
+
 		self.fly_frame_count = 0
-		self.max_fly_frame_count = 6
+		self.max_fly_frame_count = 8
 
 		self.flying_up = False
 
-		self.change_per_frame = 10
+		self.change_per_frame = 3
 
-		for frame in range(0, self.sprite_num, self.sprite_w):
-			shift = (self.rect.left + frame, self.rect.top, self.rect.width // 6, self.rect.height)
+		# for frame in range(0, self.sprite_num, self.sprite_w):
+		# 	shift = (self.rect.left + frame, self.rect.top, self.rect.width // 6, self.rect.height)
+		# 	for i in range(self.change_per_frame):
+		# 		self.sprite.append(self.image.subsurface(shift))
+		# self.max_fly_frame_count = len(self.sprite)
+
+		for frame in range(0, self.sprite_num, self.sprite_h):
+			shift = (self.rect.left, self.rect.top + frame, self.rect.width, self.sprite_h)
 			for i in range(self.change_per_frame):
 				self.sprite.append(self.image.subsurface(shift))
 		self.max_fly_frame_count = len(self.sprite)

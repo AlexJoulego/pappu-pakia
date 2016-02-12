@@ -70,7 +70,7 @@ clock = pygame.time.Clock()
 
 pappu = Pappu()
 if not started:
-	pappu.x = 35
+	pappu.x = 33
 	pappu.y = 284
 	# pappu.w = 48
 	# pappu.h = pappu.rect.width
@@ -291,7 +291,7 @@ while not done:
 			pappu.y = 284
 
 		# Send over pakias
-		if score > 9:
+		if score > 99:
 			pakia.render(screen, score)
 			
 	if flying_up:
