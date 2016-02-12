@@ -5,10 +5,6 @@ from configs import *
 forks = []
 edges = ['top', 'bottom']
 
-
-# fork.image = pygame.image.load('fork_handle.png')
-# fork.rect = fork.image.get_rect()
-
 # Images
 fork_head_img = pygame.image.load('fork_head.png')
 fork_head_rect = fork_head_img.get_rect()
