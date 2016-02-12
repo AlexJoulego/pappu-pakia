@@ -23,6 +23,12 @@ class Pakia(pygame.sprite.Sprite):
 			'angry': load_image('angry_pakia.png')[1]
 		}
 
+		self.sounds = {
+			'angry': load_sound('jump1.ogg'),
+			'sad': load_sound('jump2.ogg'),
+			'happy': load_sound('jump3.ogg')
+		}
+
 		self.type = 'angry'
 		self.x = 0
 		self.y = 0
@@ -36,6 +42,9 @@ class Pakia(pygame.sprite.Sprite):
 
 	def draw(self, canvas):
 		canvas.blit(self.img[self.type], (self.x, self.y))
+
+	def play(self):
+		self.sounds[self.type].play()
 
 	def generateRandomPos(self, canvas):
 		self.x = canvas.get_rect().width/2 + 200
@@ -92,6 +101,8 @@ def render(canvas, score=score):
 	if round(score, 2) % 50 == 0 or cur_pakia:
 		reflow(canvas)
 		repaint(canvas)
+	if round(score, 2) % 50 == 0 and cur_pakia:
+		cur_pakia.play()
 
 def checkCollision(sprite):
 	if cur_pakia:

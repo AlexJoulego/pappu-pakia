@@ -57,6 +57,7 @@ opacity = 0
 
 # Music
 pygame.mixer.music.load('pappu-pakia2.3.ogg')
+pygame.mixer.music.set_volume(0.2)
 pygame.mixer.music.play(-1)
 
 
@@ -325,11 +326,11 @@ while not done:
 
 	# Update score
 	if started and not game_over:
-		score += 0.2
+		score += 0.4
 
 	
 	# --- Update the screen
 	pygame.display.update()
 
-	# --- Limit to 120 frames per second
-	clock.tick(120)
+	# --- Limit a number of frames per second
+	clock.tick(game_speed)

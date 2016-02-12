@@ -30,6 +30,8 @@ credits2_size = 28
 score_size = 30
 start_size = 40
 
+game_speed = 75
+
 fork_count = 6
 
 # velocity
@@ -41,7 +43,7 @@ ax = 0
 ay = 0
 
 gravity = 0.7
-v_cap = 7
+v_cap = 7.5
 v_vel = 1.5
 
 # flying up?
