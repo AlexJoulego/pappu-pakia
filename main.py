@@ -224,7 +224,7 @@ while not done:
 	if -backtree_bg_vx >= SCREEN_WIDTH:
 		backtree_bg_vx = 0
 	if started and not game_over:
-		backtree_bg_vx -= backtree_bg_move_speed
+		backtree_bg_vx -= backtree_bg_move_speed * common_bg_speed
 
 	screen.blit(back_trees, (backtree_bg_vx, 0))
 	screen.blit(back_trees, (SCREEN_WIDTH + backtree_bg_vx, 0))
@@ -233,7 +233,7 @@ while not done:
 	if -fronttree_bg_vx >= SCREEN_WIDTH:
 		fronttree_bg_vx = 0
 	if started and not game_over:
-		fronttree_bg_vx -= fronttree_bg_move_speed
+		fronttree_bg_vx -= fronttree_bg_move_speed * common_bg_speed
 
 	screen.blit(front_trees, (fronttree_bg_vx, 0))
 	screen.blit(front_trees, (SCREEN_WIDTH + fronttree_bg_vx, 0))
@@ -242,7 +242,7 @@ while not done:
 	if -ground_bg_vx >= SCREEN_WIDTH:
 		ground_bg_vx = 0
 	if started and not game_over:
-		ground_bg_vx -= ground_bg_move_speed
+		ground_bg_vx -= ground_bg_move_speed * common_bg_speed
 
 	screen.blit(ground, (ground_bg_vx, 0))
 	screen.blit(ground, (SCREEN_WIDTH + ground_bg_vx, 0))
@@ -251,7 +251,7 @@ while not done:
 	if -grass_bg_vs >= SCREEN_WIDTH:
 		grass_bg_vs = 0
 	if started and not game_over:
-		grass_bg_vs -= grass_bg_move_speed
+		grass_bg_vs -= grass_bg_move_speed * common_bg_speed
 
 
 	screen.blit(grass, (grass_bg_vs, 0))
@@ -320,7 +320,7 @@ while not done:
 
 	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
 	if started and not game_over:
-		log_x -= grass_bg_move_speed
+		log_x -= grass_bg_move_speed * common_bg_speed
 	else:
 		log_x = 30	
 

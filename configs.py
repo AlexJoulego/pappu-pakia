@@ -51,6 +51,7 @@ flying_up = False
 
 score = 0
 
+common_bg_speed = 1
 cloud_bg_move_speed = 2
 cloud_bg_vx = 0
 backtree_bg_move_speed = 3
