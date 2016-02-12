@@ -119,4 +119,3 @@ def checkCollision(sprite):
 def resetBranches():
 	global branches
 	branches = []
-	print('branches reset')

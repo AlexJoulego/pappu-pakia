@@ -44,6 +44,9 @@ gravity = 0.7
 v_cap = 7
 v_vel = 1.5
 
+# flying up?
+flying_up = False
+
 score = 0
 
 cloud_bg_move_speed = 2

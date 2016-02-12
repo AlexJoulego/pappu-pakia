@@ -18,10 +18,6 @@ bg = pygame.Surface(screen.get_size()).convert()
 
 # Data structures and globals
 
-
-# flying up?
-flying_up = False
-
 clouds, clouds_rect = load_image("clouds.png")
 back_trees, back_trees_rect = load_image("back_trees.png")
 front_trees, front_trees_rect = load_image("front_trees.png")

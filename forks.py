@@ -141,4 +141,3 @@ def checkCollision(sprite):
 def resetForks():
 	global forks
 	forks = []
-	print('forks reset')

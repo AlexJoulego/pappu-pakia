@@ -106,4 +106,3 @@ def resetPakias():
 	global pakias, cur_pakia
 	pakias = []
 	cur_pakia = False
-	print('pakias reset')
