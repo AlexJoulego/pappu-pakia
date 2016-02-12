@@ -99,3 +99,9 @@ def intersect(bounds1, bounds2):
 		bounds2['end_x'] < bounds1['start_x'] or
 		bounds1['end_y'] < bounds2['start_y'] or
 		bounds2['end_y'] < bounds1['start_y'])
+
+def slightly_intersect(bounds1, bounds2):
+	return (bounds1['end_x'] > bounds2['start_x']+20 and
+		bounds2['end_x']-20 > bounds1['start_x'] and
+		bounds1['end_y'] > bounds2['start_y']+20 and
+		bounds2['end_y']-20 > bounds1['start_y'])
