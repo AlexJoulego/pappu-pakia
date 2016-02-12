@@ -42,8 +42,8 @@ class Pakia(pygame.sprite.Sprite):
 		self.y = canvas.get_rect().height
 
 	def generateRandomVelocity(self):
-		self.vx = -10
-		self.vy = random.randint(-30, -20)
+		self.vx = -12
+		self.vy = random.randint(-27, -20)
 
 	def getBounds(self):
 		bounds = {
