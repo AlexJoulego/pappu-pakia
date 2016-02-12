@@ -56,7 +56,6 @@ def getRandomForkPos(canvas):
 
 	for branch in branches_lst:
 		if abs(pos['x'] - branch.x) < 300:
-			print('check!')
 			pos['x'] = branch.x + 300
 	
 	return pos

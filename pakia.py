@@ -42,7 +42,7 @@ class Pakia(pygame.sprite.Sprite):
 		self.y = canvas.get_rect().height
 
 	def generateRandomVelocity(self):
-		self.vx = -6
+		self.vx = -15
 		self.vy = random.randint(-25, -16)
 
 def createPakias(canvas):
@@ -78,6 +78,6 @@ def repaint(canvas):
 def render(canvas, score=score):
 	if len(pakias) == 0:
 		createPakias(canvas)
-	if round(score, 2) % 50 == 0 or cur_pakia:
+	if round(score, 2) % 10 == 0 or cur_pakia:
 		reflow(canvas)
 		repaint(canvas)

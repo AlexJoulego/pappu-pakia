@@ -291,7 +291,7 @@ while not done:
 		# 	pappu.y = 284
 
 		# Send over pakias
-		if score > 199:
+		if score > 9:
 			pakia.render(screen, score)
 			
 	if flying_up:
