@@ -54,7 +54,6 @@ credits2Font = pygame.font.Font(font_path, credits2_size)
 startFont = pygame.font.Font(font_path, start_size)
 
 # Score board
-score = 0
 scoreFont = pygame.font.Font(font_path, score_size)
 score_pos = (SCREEN_WIDTH - 100, 10)
 
@@ -266,8 +265,7 @@ while not done:
 	score_text = scoreFont.render(str(int(score)), 0, SCORE)
 	screen.blit(score_text, score_pos)
 
-	pakia.reflow(screen)
-	pakia.repaint(screen)
+	pakia.render(screen)
 
 
 	if started and not game_over:
@@ -292,8 +290,7 @@ while not done:
 			pappu.y = 284
 
 		# Send over pakias
-		pakia.reflow(screen)
-		pakia.repaint(screen)
+		pakia.render(screen)
 			
 	if flying_up:
 		pappu.flying_up = True

@@ -3,6 +3,7 @@ from utils import *
 from configs import *
 
 pakias = []
+cur_pakia = False
 
 class Pakia(pygame.sprite.Sprite):
 	def __init__(self):
@@ -10,9 +11,17 @@ class Pakia(pygame.sprite.Sprite):
 
 		self.types = ['sad', 'happy', 'angry']
 
-		self.sad_img, self.sad_rect = load_image("sad_pakiya.png")
-		self.happy_img, self.happy_rect = load_image("happy_pakiya.png")
-		self.angry_img, self.angry_rect = load_image("angry_pakiya.png")
+		self.img = {
+			'sad': load_image('sad_pakiya.png')[0],
+			'happy': load_image('happy_pakiya.png')[0],
+			'angry': load_image('angry_pakiya.png')[0]
+		}
+
+		self.rect = {
+			'sad': load_image('sad_pakiya.png')[1],
+			'happy': load_image('happy_pakiya.png')[1],
+			'angry': load_image('angry_pakiya.png')[1]
+		}
 
 		self.type = 'angry'
 		self.x = 0
@@ -25,28 +34,50 @@ class Pakia(pygame.sprite.Sprite):
 		self.ax = 0
 		self.ay = 0
 
+	def draw(self, canvas):
+		canvas.blit(self.img[self.type], (self.x, self.y))
+
+	def generateRandomPos(self, canvas):
+		self.x = canvas.get_rect().width/2 + 200
+		self.y = canvas.get_rect().height
+
+	def generateRandomVelocity(self):
+		self.vx = -6
+		self.vy = random.randint(-25, -16)
+
+def createPakias(canvas):
+	for emo in ['sad', 'happy', 'angry']:
+		pakia = Pakia()
+		pakia.w = pakia.rect['sad'].width
+		pakia.h = pakia.rect['sad'].height
+
+		pakia.generateRandomPos(canvas)
+		pakia.generateRandomVelocity()
+		pakia.type = emo
+		pakias.append(pakia)
+
 def reflow(canvas):
-	pakia = Pakia()
-	pakia.w = pakia.sad_rect.width
-	pakia.h = pakia.sad_rect.height
+	global cur_pakia
+	if not cur_pakia:
+		cur_pakia = pakias[random.randint(0,2)]
+	cur_pakia.vy += gravity
 
-	pakia.x = canvas.get_rect().width/2 + 20
-	pakia.y = canvas.get_rect().height
+	cur_pakia.x += cur_pakia.vx
+	cur_pakia.y += cur_pakia.vy
 
-	pakia.ax = -5
-	pakia.ay = -1
-
-	pakia.vx = -10
-	pakia.vy = (-1) * random.randint(10, 14)
-
-	pakias.append(pakia)
+	# Reset positions
+	if (cur_pakia.x + cur_pakia.w < 0):
+		cur_pakia.generateRandomPos(canvas)
+		cur_pakia.generateRandomVelocity()
+		cur_pakia = False
 
 def repaint(canvas):
-	pakia = pakias[0]
+	if cur_pakia:
+		cur_pakia.draw(canvas)
 
-	pakia.vy += gravity
-
-	pakia.x += pakia.vx
-	pakia.y += pakia.vy
-
-	canvas.blit(pakia.sad_img, (pakia.x, pakia.y))
+def render(canvas):
+	if len(pakias) == 0:
+		createPakias(canvas)
+	if round(score, 2) % 10 == 0 or cur_pakia:
+		reflow(canvas)
+		repaint(canvas)
