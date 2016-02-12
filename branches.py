@@ -47,12 +47,7 @@ def getRandomBranchPos():
 		pos['x'] += random.randint(500, 2000)
 	else:
 		# first
-		pos['x'] = random.randint(2000, 2500)
-
-	# last_fork = forks_lst[-1]
-
-	# if abs(pos['x'] - last_fork.x) < 300:
-	# 	pos['x'] = last_fork.x + 300
+		pos['x'] = random.randint(2000, 2500)	
 
 	for fork in forks_lst:
 		if abs(pos['x'] - fork.x) < 400:

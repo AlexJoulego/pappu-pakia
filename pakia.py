@@ -40,6 +40,10 @@ class Pakia(pygame.sprite.Sprite):
 		self.ax = 0
 		self.ay = 0
 
+		# Cheating on a bit with the physics
+		# can't have the same gravity for pappu and pakias
+		self.gravity = 0.3
+
 	def draw(self, canvas):
 		canvas.blit(self.img[self.type], (self.x, self.y))
 
@@ -52,7 +56,7 @@ class Pakia(pygame.sprite.Sprite):
 
 	def generateRandomVelocity(self):
 		self.vx = -12
-		self.vy = random.randint(-27, -20)
+		self.vy = random.randint(-18, -10)
 
 	def getBounds(self):
 		bounds = {
@@ -80,7 +84,7 @@ def reflow(canvas):
 	global cur_pakia
 	if not cur_pakia:
 		cur_pakia = pakias[random.randint(0,2)]
-	cur_pakia.vy += gravity
+	cur_pakia.vy += cur_pakia.gravity
 
 	cur_pakia.x += cur_pakia.vx
 	cur_pakia.y += cur_pakia.vy

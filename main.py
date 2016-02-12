@@ -311,7 +311,11 @@ while not done:
 
 	if flying_up:
 		pappu.flying_up = True
+		pappu.sound.play()
 	if started and not game_over:
+		pappu.draw(screen)
+	elif started and game_over:
+		pappu.flying_up = True
 		pappu.draw(screen)
 	else:
 		pappu.drawStatic(screen)

@@ -42,7 +42,7 @@ class Pappu(pygame.sprite.Sprite):
 		# print(self.flying_up)
 		rotated = pygame.transform.rotate(self.sprite[self.fly_frame_count], self.rotate_angle)
 		if self.flying_up:
-			self.sound.play()
+			# self.sound.play()
 
 			if self.rotate_angle > -15:
 				self.rotate_angle -= 1.6			
