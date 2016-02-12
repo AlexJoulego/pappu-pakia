@@ -124,7 +124,8 @@ def checkCollision(sprite):
 
 	# Get nearest fork handle's bounds
 	fork_bounds = forks[0].getHandleBounds()
+	fork_head_bounds = forks[0].getHeadBounds()
 	
-	if intersect(sprite_bounds, fork_bounds):
+	if intersect(sprite_bounds, fork_bounds) or intersect(sprite_bounds, fork_head_bounds):
 		return True
 	return False
