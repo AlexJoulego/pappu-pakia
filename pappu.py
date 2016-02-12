@@ -8,8 +8,8 @@ class Pappu(pygame.sprite.Sprite):
 
 		self.image, self.rect = load_image("pappu.png")
 
-		self.x = 50
-		self.y = 10
+		self.x = 60
+		self.y = 60
 		self.w = self.rect.width
 		self.h = self.rect.height // 8
 
@@ -23,8 +23,8 @@ class Pappu(pygame.sprite.Sprite):
 
 		self.flying_up = False
 
-		self.change_per_frame = 3
-		self.rotate_angle = 15
+		self.change_per_frame = 1
+		self.rotate_angle = 0
 
 		# for frame in range(0, self.sprite_num, self.sprite_w):
 		# 	shift = (self.rect.left + frame, self.rect.top, self.rect.width // 6, self.rect.height)
@@ -42,9 +42,9 @@ class Pappu(pygame.sprite.Sprite):
 	def draw(self, canvas):
 				
 		# print(self.flying_up)
-		rotated = pygame.transform.rotate(self.sprite[self.fly_frame_count], -self.rotate_angle)
+		rotated = pygame.transform.rotate(self.sprite[self.fly_frame_count], self.rotate_angle)
 		if self.flying_up:
-			if self.rotate_angle > 15:
+			if self.rotate_angle > -15:
 				self.rotate_angle -= 1			
 			self.fly_frame_count += 1
 			if self.fly_frame_count == self.max_fly_frame_count:
@@ -53,7 +53,7 @@ class Pappu(pygame.sprite.Sprite):
 			# pygame.draw.rect(canvas, BLUE, (self.x, self.y, self.w, self.h))
 			# print(self.fly_frame_count)
 		else:
-			if self.rotate_angle < 35:
+			if self.rotate_angle < 30:
 				self.rotate_angle += 1
 			# canvas.blit(self.sprite[0], (self.x, self.y))
 			canvas.blit(rotated, (self.x, self.y))

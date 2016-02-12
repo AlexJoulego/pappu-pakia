@@ -55,6 +55,10 @@ score_pos = (SCREEN_WIDTH - 100, 10)
 
 opacity = 0
 
+# Music
+pygame.mixer.music.load('pappu-pakia2.3.ogg')
+pygame.mixer.music.play(-1)
+
 
 # Loop until the user clicks the close button
 done = False
@@ -187,6 +191,7 @@ while not done:
 		start_btn_click = 0
 		pappu.x = 38
 		pappu.y = 284
+		print('reached boundaries...')
 	
 	if started and not game_over:
 		# game_over = False
@@ -281,6 +286,7 @@ while not done:
 			start_btn_click = 0
 			pappu.x = 33
 			pappu.y = 284
+			print('hit a fork!')
 		if branches.checkCollision(pappu):
 			first_start = False
 			started = False
@@ -288,6 +294,7 @@ while not done:
 			start_btn_click = 0
 			pappu.x = 33
 			pappu.y = 284
+			print('hit a branch!')
 
 		# Send over pakias
 		if score > 199:
@@ -299,6 +306,7 @@ while not done:
 			start_btn_click = 0
 			pappu.x = 33
 			pappu.y = 284
+			print('hit a pakia!')
 
 	if flying_up:
 		pappu.flying_up = True
