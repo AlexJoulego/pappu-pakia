@@ -44,7 +44,6 @@ class Fork(pygame.sprite.Sprite):
 		
 
 def getRandomForkPos(canvas):
-	global branches
 	pos = {}
 
 	if len(forks) > 0 and forks[len(forks)-1] is not None:
@@ -88,11 +87,13 @@ def draw(canvas, count=forks_cnt):
 			fork.h = fork.rect.height
 
 			forks.append(fork)
+			forks_lst.append(fork)
 
 	index = 0	
 	for fork in forks:
 		if fork.x < 0:
 			forks.pop(index)
+			forks_lst.pop(index)
 		fork.x -= ground_bg_move_speed
 		index += 1	
 

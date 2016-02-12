@@ -49,6 +49,15 @@ def getRandomBranchPos():
 		# first
 		pos['x'] = random.randint(2000, 2500)
 
+	# last_fork = forks_lst[-1]
+
+	# if abs(pos['x'] - last_fork.x) < 300:
+	# 	pos['x'] = last_fork.x + 300
+
+	for fork in forks_lst:
+		if abs(pos['x'] - fork.x) < 400:
+			pos['x'] = fork.x + 500
+
 	return pos
 
 def draw(canvas, count=branches_cnt):
@@ -79,6 +88,7 @@ def draw(canvas, count=branches_cnt):
 	for branch in branches:
 		if branch.x < 0:
 			branches.pop(index)
+			branches_lst.pop(index)
 		branch.x -= ground_bg_move_speed
 		index += 1
 
