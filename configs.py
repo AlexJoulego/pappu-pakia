@@ -7,6 +7,10 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+LIGHTBLUE = (0, 0, 200)
+YELLOW = (255, 255, 0)
+ORANGE = (255, 165, 0)
+PURPLE = (128, 0, 128)
 TRANSPARENT = (255, 255, 255, 10)
 
 TITLE = (148, 84, 48)
@@ -49,7 +53,7 @@ v_vel = 1.5
 # flying up?
 flying_up = False
 
-score = 0
+# score = 0
 
 common_bg_speed = 1
 cloud_bg_move_speed = 2

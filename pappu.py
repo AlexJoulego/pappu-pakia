@@ -13,6 +13,10 @@ class Pappu(pygame.sprite.Sprite):
 		self.w = self.rect.width
 		self.h = self.rect.height // 8
 
+		self.invincible = False
+
+		self.score = 0
+
 		self.sprite = []
 		self.sprite_num = self.rect.height
 		self.sprite_h = self.rect.height // 8
@@ -38,9 +42,11 @@ class Pappu(pygame.sprite.Sprite):
 
 
 	def draw(self, canvas):
-				
+		opacity = 255
 		# print(self.flying_up)
 		rotated = pygame.transform.rotate(self.sprite[self.fly_frame_count], self.rotate_angle)
+		if self.invincible:
+			opacity = 255 * 0.4
 		if self.flying_up:
 			# self.sound.play()
 
@@ -49,19 +55,24 @@ class Pappu(pygame.sprite.Sprite):
 			self.fly_frame_count += 1
 			if self.fly_frame_count == self.max_fly_frame_count:
 				self.fly_frame_count = 0			
-			canvas.blit(rotated, (self.x, self.y))
+			# canvas.blit(rotated, (self.x, self.y))
+			blit_alpha(canvas, rotated, (self.x, self.y), opacity)
 			# pygame.draw.rect(canvas, BLUE, (self.x, self.y, self.w, self.h))
 			# print(self.fly_frame_count)
 		else:
 			if self.rotate_angle < 30:
 				self.rotate_angle += 1.6
 			# canvas.blit(self.sprite[0], (self.x, self.y))
-			canvas.blit(rotated, (self.x, self.y))
+			# canvas.blit(rotated, (self.x, self.y))
+			blit_alpha(canvas, rotated, (self.x, self.y), opacity)
 			# pygame.draw.rect(canvas, BLUE, (self.x, self.y, self.w, self.h))
 		self.flying_up = False
 
 	def drawStatic(self, canvas):
 		canvas.blit(self.sprite[0], (self.x, self.y))
+
+	def undoInvincible(self):
+		self.invincible = False
 
 
 	def hasReachedBoundary(self, canvas):

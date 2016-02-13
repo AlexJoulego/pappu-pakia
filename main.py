@@ -148,8 +148,6 @@ while not done:
 
 		# Game play on mouse clicks, too!
 		if event.type == MOUSEBUTTONDOWN and start_btn_click == 0:
-			# forks.forks = []
-			# branches.branches = []
 			forks.resetForks()
 			branches.resetBranches()
 			pakia.resetPakias()
@@ -158,7 +156,7 @@ while not done:
 			if pressed(mouse, plank_rect):
 				started = True
 				if game_over:
-					score = 0
+					pappu.score = 0
 				start_btn_click += 1					
 			
 		
@@ -193,6 +191,7 @@ while not done:
 		start_btn_click = 0
 		pappu.x = 38
 		pappu.y = 284
+		pappu.invincible = False
 		print('reached boundaries...')
 	
 	if started and not game_over:
@@ -266,7 +265,7 @@ while not done:
 		intro(1)
 	
 
-	score_text = scoreFont.render(str(int(score)), 0, SCORE)
+	score_text = scoreFont.render(str(int(pappu.score)), 0, SCORE)
 	screen.blit(score_text, score_pos)
 
 	# forks_text = scoreFont.render(str(len(branches.branches)), 0, SCORE)
@@ -281,34 +280,39 @@ while not done:
 		# Draw branches
 		branches.draw(screen)
 		# Check collisions with pappu
-		if forks.checkCollision(pappu):
-			first_start = False
-			started = False
-			game_over = True
-			start_btn_click = 0
-			pappu.x = 33
-			pappu.y = 284
-			print('hit a fork!')
-		if branches.checkCollision(pappu):
-			first_start = False
-			started = False
-			game_over = True
-			start_btn_click = 0
-			pappu.x = 33
-			pappu.y = 284
-			print('hit a branch!')
+		if not pappu.invincible:
+			if forks.checkCollision(pappu):
+				first_start = False
+				started = False
+				game_over = True
+				start_btn_click = 0
+				pappu.x = 33
+				pappu.y = 284
+				pappu.invincible = False
+				print('hit a fork!')
+			if branches.checkCollision(pappu):
+				first_start = False
+				started = False
+				game_over = True
+				start_btn_click = 0
+				pappu.x = 33
+				pappu.y = 284
+				pappu.invincible = False
+				print('hit a branch!')
 
 		# Send over pakias
-		if score > 199:
-			pakia.render(screen, score)
-		if pakia.checkCollision(pappu):
-			first_start = False
-			started = False
-			game_over = True
-			start_btn_click = 0
-			pappu.x = 33
-			pappu.y = 284
-			print('hit a pakia!')
+		if pappu.score > 199:
+			pakia.render(screen, pappu.score)
+		if not pappu.invincible:
+			if pakia.checkCollision(pappu):
+				first_start = False
+				started = False
+				game_over = True
+				start_btn_click = 0
+				pappu.x = 33
+				pappu.y = 284
+				pappu.invincible = False
+				print('hit a pakia!')
 
 		collectibles.draw(screen)
 		collectibles.checkCollision(pappu)
@@ -335,7 +339,7 @@ while not done:
 
 	# Update score
 	if started and not game_over:
-		score += 0.4
+		pappu.score += 0.4
 
 	
 	# --- Update the screen

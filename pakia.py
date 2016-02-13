@@ -99,7 +99,7 @@ def repaint(canvas):
 	if cur_pakia:
 		cur_pakia.draw(canvas)
 
-def render(canvas, score=score):
+def render(canvas, score):
 	if len(pakias) == 0:
 		createPakias(canvas)
 	if round(score, 2) % 50 == 0 or cur_pakia:
@@ -113,7 +113,7 @@ def checkCollision(sprite):
 		sprite_bounds = sprite.getBounds()
 		pakia_bounds = cur_pakia.getBounds()
 
-		if intersect(sprite_bounds, pakia_bounds):
+		if slightly_intersect(sprite_bounds, pakia_bounds):
 			return True
 	return False
 
