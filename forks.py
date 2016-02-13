@@ -46,8 +46,8 @@ class Fork(pygame.sprite.Sprite):
 def getRandomForkPos(canvas):
 	pos = {}
 
-	if len(forks) > 0 and forks[len(forks)-1] is not None:
-		pos['x'] = forks[len(forks)-1].x
+	if len(forks) > 0 and forks[-1] is not None:
+		pos['x'] = forks[-1].x
 		pos['x'] += random.randint(300, 600)
 		
 	else:

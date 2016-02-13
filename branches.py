@@ -42,8 +42,8 @@ branches = []
 def getRandomBranchPos():
 	pos = {}
 
-	if len(branches) > 0 and branches[len(branches)-1] is not None:
-		pos['x'] = branches[len(branches)-1].x
+	if len(branches) > 0 and branches[-1] is not None:
+		pos['x'] = branches[-1].x
 		pos['x'] += random.randint(500, 2000)
 	else:
 		# first

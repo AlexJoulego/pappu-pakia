@@ -74,3 +74,4 @@ branches_cnt = 4
 branches_lst = []
 forks_lst = []
 pakias_lst = []
+collecs_lst = []

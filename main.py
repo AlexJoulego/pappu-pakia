@@ -1,5 +1,5 @@
 import pygame, sys
-import forks, branches, pakia
+import forks, branches, pakia, collectibles
 from pygame.locals import *
 from pappu import Pappu
 from configs import *
@@ -57,7 +57,7 @@ opacity = 0
 
 # Music
 pygame.mixer.music.load('pappu-pakia2.3.ogg')
-pygame.mixer.music.set_volume(0.2)
+pygame.mixer.music.set_volume(0.05)
 pygame.mixer.music.play(-1)
 
 
@@ -153,6 +153,7 @@ while not done:
 			forks.resetForks()
 			branches.resetBranches()
 			pakia.resetPakias()
+			collectibles.reset()
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
 				started = True
@@ -308,6 +309,10 @@ while not done:
 			pappu.x = 33
 			pappu.y = 284
 			print('hit a pakia!')
+
+		collectibles.draw(screen)
+		collectibles.checkCollision(pappu)
+
 
 	if flying_up:
 		pappu.flying_up = True
