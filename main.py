@@ -14,8 +14,6 @@ screen = pygame.display.get_surface()
 
 pygame.display.set_caption("Pappu Pakia")
 
-bg = pygame.Surface(screen.get_size()).convert()
-
 # Data structures and globals
 
 clouds, clouds_rect = load_image("clouds.png")
@@ -24,7 +22,6 @@ front_trees, front_trees_rect = load_image("front_trees.png")
 ground, ground_rect = load_image("ground.png")
 grass, grass_rect = load_image("grass.png")
 log, log_rect = load_image("log.png")
-log_x = 30
 dig, dig_rect = load_image("dig.png")
 
 
@@ -68,13 +65,14 @@ done = False
 clock = pygame.time.Clock()
 
 
-
 pappu = Pappu()
 if not started:
 	pappu.x = 33
 	pappu.y = 284
 	# pappu.w = 48
 	# pappu.h = pappu.rect.width
+
+collided = False
 
 
 title = fontObj.render("Pappu Pakia", 0, TITLE)
@@ -84,7 +82,6 @@ credits_pos = (SCREEN_WIDTH // 3 - 70, 80)
 credits2 = credits2Font.render("implemented in Python by Alexander Joulego", 0, MY_CREDITS)
 credits2_pos = (SCREEN_WIDTH // 3 - 130, 120)
 
-# start_button = startFont.render(start_text, 0, start_color)
 start_pos = (SCREEN_WIDTH - 173, 160)
 
 
@@ -155,6 +152,7 @@ while not done:
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
 				started = True
+				collided = False
 				if game_over:
 					pappu.score = 0
 				start_btn_click += 1					
@@ -182,16 +180,18 @@ while not done:
 
 
 	# --- Game logic
-	# Game over on reaching any boundary
-	if pappu.hasReachedBoundary(screen):
-		# done = True
+	if collided:
 		first_start = False
 		started = False
 		game_over = True
 		start_btn_click = 0
-		pappu.x = 38
+		pappu.x = 33
 		pappu.y = 284
 		pappu.invincible = False
+	# Game over on reaching any boundary
+	if pappu.hasReachedBoundary(screen):
+		# done = True
+		collided = True
 		print('reached boundaries...')
 	
 	if started and not game_over:
@@ -204,12 +204,9 @@ while not done:
 		pappu.x += vx
 		pappu.y += vy
 
-	# --- Screen-clearing code
-	screen.fill(WHITE)
-	
+
 	# --- Draw animated BACKGROUND
 	background = fill_gradient(screen, GRADIENT_START, GRADIENT_STOP)	
-	# print(background)
 	# Clouds
 	if -cloud_bg_vx >= SCREEN_WIDTH:
 		cloud_bg_vx = 0
@@ -266,13 +263,7 @@ while not done:
 	
 
 	score_text = scoreFont.render(str(int(pappu.score)), 0, SCORE)
-	screen.blit(score_text, score_pos)
-
-	# forks_text = scoreFont.render(str(len(branches.branches)), 0, SCORE)
-	# screen.blit(forks_text, (0,0))
-	# branches_text = scoreFont.render(str(len(forks.forks)), 0, SCORE)
-	# screen.blit(branches_text, (0, 50))
-
+	screen.blit(score_text, score_pos)	
 
 	if started and not game_over:
 		# Draw forks
@@ -282,22 +273,10 @@ while not done:
 		# Check collisions with pappu
 		if not pappu.invincible:
 			if forks.checkCollision(pappu):
-				first_start = False
-				started = False
-				game_over = True
-				start_btn_click = 0
-				pappu.x = 33
-				pappu.y = 284
-				pappu.invincible = False
+				collided = True
 				print('hit a fork!')
 			if branches.checkCollision(pappu):
-				first_start = False
-				started = False
-				game_over = True
-				start_btn_click = 0
-				pappu.x = 33
-				pappu.y = 284
-				pappu.invincible = False
+				collided = True
 				print('hit a branch!')
 
 		# Send over pakias
@@ -305,13 +284,7 @@ while not done:
 			pakia.render(screen, pappu.score)
 		if not pappu.invincible:
 			if pakia.checkCollision(pappu):
-				first_start = False
-				started = False
-				game_over = True
-				start_btn_click = 0
-				pappu.x = 33
-				pappu.y = 284
-				pappu.invincible = False
+				collided = True
 				print('hit a pakia!')
 
 		collectibles.draw(screen)

@@ -66,6 +66,7 @@ ground_bg_move_speed = 8
 ground_bg_vx = 0
 grass_bg_move_speed = 8
 grass_bg_vs = 0
+log_x = 30
 
 started = False
 first_start = True
