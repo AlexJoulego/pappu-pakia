@@ -149,6 +149,7 @@ while not done:
 			branches.resetBranches()
 			pakia.resetPakias()
 			collectibles.reset()
+			pappu.resetClones()
 			mouse = pygame.mouse.get_pos()
 			if pressed(mouse, plank_rect):
 				started = True
@@ -263,8 +264,9 @@ while not done:
 	
 
 	score_text = scoreFont.render(str(int(pappu.score)), 0, SCORE)
-	screen.blit(score_text, score_pos)	
+	screen.blit(score_text, score_pos)
 
+	# Draw the stuff
 	if started and not game_over:
 		# Draw forks
 		forks.draw(screen)
@@ -287,13 +289,17 @@ while not done:
 				collided = True
 				print('hit a pakia!')
 
+		# Draw collectibles
 		collectibles.draw(screen)
 		collectibles.checkCollision(pappu)
+		# Draw clones
+		pappu.drawClones(screen)
+		pappu.checkCloneCollision()
 
 
 	if flying_up:
 		pappu.flying_up = True
-		pappu.sound.play()
+		# pappu.sound.play()
 	if started and not game_over:
 		pappu.draw(screen)
 	elif started and game_over:

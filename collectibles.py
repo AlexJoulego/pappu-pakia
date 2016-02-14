@@ -18,15 +18,8 @@ class Collectible(object):
 
 		self.w = 0
 		self.h = 0
-
-		# self.rect = (self.x, self.y, self.w, self.h)
-
-		# self.types = ['coin', 'clone', 'invincible']
-		# self.sub_types = {
-		# 	'coin': [50, 100, 500, 1000]
-		# }
-
-		self.type = 'coin'
+		
+		self.type = 'clone'
 		self.sub_type = 50
 
 
@@ -165,6 +158,8 @@ def checkCollision(sprite):
 			sprite.invincible = True
 			t = Timer(5.0, sprite.undoInvincible)
 			t.start()
+		elif collec.type == 'clone':
+			sprite.createClones(3)
 		print(sprite.score)
 
 

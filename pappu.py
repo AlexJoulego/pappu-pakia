@@ -1,4 +1,5 @@
-import pygame
+import pygame, random
+import branches, forks, pakia
 from utils import *
 from configs import *
 
@@ -14,6 +15,7 @@ class Pappu(pygame.sprite.Sprite):
 		self.h = self.rect.height // 8
 
 		self.invincible = False
+		self.clones = []
 
 		self.score = 0
 
@@ -94,3 +96,72 @@ class Pappu(pygame.sprite.Sprite):
 		}		
 
 		return bounds
+
+	def createClones(self, count):
+		for i in range(count):
+			pappu_clone = Pappu()
+			pappu_clone.x = self.x
+			pappu_clone.y = self.y
+			self.clones.append(pappu_clone)
+
+	def drawClones(self, canvas):
+		index = 0
+		for clone in self.clones:
+			if clone.x > canvas.get_rect().width or clone.y < 0 or clone.y > canvas.get_rect().height:
+				self.clones.pop(index)
+			index += 1
+
+			clone.x += random.randint(5, 10)
+			clone.y += random.randint(-20, 20)
+
+			clone.draw(canvas)
+
+	def checkCloneCollision(self):
+		branchs = branches.branches
+		frks = forks.forks
+		pks = pakia.pakias
+		# print(len(branchs), len(frks), len(pks))
+
+		index = 0
+		for branch in branchs:
+			branch_bound = branch.getBounds()
+			for clone in self.clones:
+				clone_bound = clone.getBounds()
+				# print('bounds: ', branch_bound, "(branches)")
+				# print(clone_bound, "(clones)")
+				if intersect(branch_bound, clone_bound):
+					if index < len(branchs):
+						branchs.pop(index)
+						branches_lst.pop(index)
+					# print('ouch!', len(branches_lst), len(branches.branches))
+			index += 1
+
+		index = 0
+		for fork in frks:
+			fork_head_bound = fork.getHeadBounds()
+			fork_handle_bound = fork.getHandleBounds()
+
+			for clone in self.clones:
+				clone_bound = clone.getBounds()
+				if intersect(fork_head_bound, clone_bound):
+					if index < len(frks):
+						frks.pop(index)
+						forks_lst.pop(index)
+						print(index)
+				if intersect(fork_handle_bound, clone_bound):					
+					if index < len(frks):
+						frks.pop(index)
+						forks_lst.pop(index)
+				index += 1
+
+			index = 0
+			for paki in pks:
+				pakia_bound = paki.getBounds()
+				for clone in self.clones:
+					clone_bound = clone.getBounds()
+					if intersect(pakia_bound, clone_bound):
+						pakia.cur_pakia = False
+				index += 1
+
+	def resetClones(self):
+		self.clones = []
