@@ -19,7 +19,9 @@ Hitting them will end the game. There are 3 types of pakias: sad (pull you),
 happy (push you), angry (kill you) /not implemented yet/.
 Keep safe distance from them!
 
-There are some collectibles, too!
+There are some collectibles, too! Coins for points (50, 100, 500, and 1000).
+Apples for invincibility for a short period.
+Berries spawning clones that'll destroy anything that comes in their way!
 
 Collisions are not super strict to make the gameplay a bit easier.
 
