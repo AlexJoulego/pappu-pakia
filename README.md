@@ -23,6 +23,10 @@ There are some collectibles, too! Coins for points (50, 100, 500, and 1000).
 Apples for invincibility for a short period.
 Berries spawning clones that'll destroy anything that comes in their way!
 
+If the collectibles are found to be over forks or branches
+then that's not a bug. The authors did that deliberately to help you
+test your greed level.
+
 Collisions are not super strict to make the gameplay a bit easier.
 
 ## Credits
