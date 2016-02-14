@@ -22,6 +22,9 @@ class Collectible(object):
 		self.type = 'clone'
 		self.sub_type = 50
 
+		self.clone_img = pygame.image.load('berries.png').convert_alpha()
+		self.invincible_img = pygame.image.load('apple.png').convert_alpha()
+
 
 	def getBounds(self):
 		bounds = {
@@ -33,7 +36,6 @@ class Collectible(object):
 		return bounds
 
 	def draw(self, canvas):
-		# pygame.draw.rect(canvas, BLACK, (self.x, self.y, self.w, self.h))
 		if self.type == 'coin':
 			self.drawCoin(canvas)
 		elif self.type == 'clone':
@@ -46,10 +48,10 @@ class Collectible(object):
 		pygame.draw.circle(canvas, color, (int(self.x), self.y), self.w//2)
 
 	def drawClone(self, canvas):
-		pygame.draw.rect(canvas, RED, (self.x, self.y, self.w, self.h))
+		canvas.blit(self.clone_img, (self.x, self.y))
 
 	def drawInvincible(self, canvas):
-		pygame.draw.rect(canvas, LIGHTBLUE, (self.x, self.y, self.w, self.h))
+		canvas.blit(self.invincible_img, (self.x, self.y))		
 
 collecs = []
 count = 2
@@ -98,9 +100,6 @@ def getRandomPos():
 
 def create(cnt=count):
 	count = cnt - len(collecs)
-	# collec = {}
-	# sub_types = {}
-	# pos = {}
 
 	for i in range(count):
 		collec = Collectible()
@@ -128,12 +127,7 @@ def draw(canvas):
 	create()
 	index = 0
 	for collec in collecs:
-		if collec.x < 0:
-			# Move off the left edge
-			# pos = getRandomPos()
-
-			# collec.x = pos['x']
-			# collec.y = pos['y']
+		if collec.x < 0:			
 			collecs.pop(index)
 			collecs_lst.pop(index)
 		collec.x -= ground_bg_move_speed
@@ -148,7 +142,6 @@ def checkCollision(sprite):
 
 	if intersect(sprite_bounds, collec_bounds):
 		# Pappu collected!
-		# pos = getRandomPos()
 
 		# Determine the type and perform action accordingly
 		if collec.type == 'coin':
@@ -161,10 +154,7 @@ def checkCollision(sprite):
 		elif collec.type == 'clone':
 			sprite.createClones(3)
 		print(sprite.score)
-
-
-		# first_collec.x = pos['x']
-		# first_collec.y = pos['y']
+		
 		shift = collecs.pop(0)
 
 		print('caught a collectible')

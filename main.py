@@ -57,10 +57,6 @@ pygame.mixer.music.load('pappu-pakia2.3.ogg')
 pygame.mixer.music.set_volume(0.05)
 pygame.mixer.music.play(-1)
 
-
-# Loop until the user clicks the close button
-done = False
-
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
@@ -121,7 +117,7 @@ def terminate():
 	sys.exit()
 
 # --------------- Main Program Loop ---------------
-while not done:
+while True:
 	# --- Main event loop
 	for event in pygame.event.get():
 		if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
@@ -191,12 +187,10 @@ while not done:
 		pappu.invincible = False
 	# Game over on reaching any boundary
 	if pappu.hasReachedBoundary(screen):
-		# done = True
 		collided = True
 		print('reached boundaries...')
 	
 	if started and not game_over:
-		# game_over = False
 		# Velocity
 		if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
 			vy += ay
