@@ -16,7 +16,7 @@ that'll end the game.
 
 There will be some obstacles along the way like forks, branches and some enemies, aka "pakias".
 Hitting them will end the game. There are 3 types of pakias: sad (pull you),
-happy (push you), angry (kill you) /not implemented yet/.
+happy (push you), angry (kill you).
 Keep safe distance from them!
 
 There are some collectibles, too! Coins for points (yellow for 50, pink for 100, red for 500, and blue for 1000).

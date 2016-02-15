@@ -14,6 +14,18 @@ class Pappu(pygame.sprite.Sprite):
 		self.w = self.rect.width
 		self.h = self.rect.height // 8
 
+		# velocity
+		self.vx = 0
+		self.vy = 0
+
+		# acceleration
+		self.ax = 0
+		self.ay = 0
+
+		self.gravity = 0.7
+		self.v_cap = 7.5
+		self.v_vel = 1.7
+
 		self.invincible = False
 		self.clones = []
 
@@ -45,7 +57,6 @@ class Pappu(pygame.sprite.Sprite):
 
 	def draw(self, canvas):
 		opacity = 255
-		# print(self.flying_up)
 		rotated = pygame.transform.rotate(self.sprite[self.fly_frame_count], self.rotate_angle)
 		if self.invincible:
 			opacity = 255 * 0.4
@@ -57,17 +68,11 @@ class Pappu(pygame.sprite.Sprite):
 			self.fly_frame_count += 1
 			if self.fly_frame_count == self.max_fly_frame_count:
 				self.fly_frame_count = 0			
-			# canvas.blit(rotated, (self.x, self.y))
 			blit_alpha(canvas, rotated, (self.x, self.y), opacity)
-			# pygame.draw.rect(canvas, BLUE, (self.x, self.y, self.w, self.h))
-			# print(self.fly_frame_count)
 		else:
 			if self.rotate_angle < 30:
 				self.rotate_angle += 1.6
-			# canvas.blit(self.sprite[0], (self.x, self.y))
-			# canvas.blit(rotated, (self.x, self.y))
 			blit_alpha(canvas, rotated, (self.x, self.y), opacity)
-			# pygame.draw.rect(canvas, BLUE, (self.x, self.y, self.w, self.h))
 		self.flying_up = False
 
 	def drawStatic(self, canvas):
@@ -120,20 +125,16 @@ class Pappu(pygame.sprite.Sprite):
 		branchs = branches.branches
 		frks = forks.forks
 		pks = pakia.pakias
-		# print(len(branchs), len(frks), len(pks))
 
 		index = 0
 		for branch in branchs:
 			branch_bound = branch.getBounds()
 			for clone in self.clones:
 				clone_bound = clone.getBounds()
-				# print('bounds: ', branch_bound, "(branches)")
-				# print(clone_bound, "(clones)")
 				if intersect(branch_bound, clone_bound):
 					if index < len(branchs):
 						branchs.pop(index)
 						branches_lst.pop(index)
-					# print('ouch!', len(branches_lst), len(branches.branches))
 			index += 1
 
 		index = 0
@@ -147,7 +148,6 @@ class Pappu(pygame.sprite.Sprite):
 					if index < len(frks):
 						frks.pop(index)
 						forks_lst.pop(index)
-						print(index)
 				if intersect(fork_handle_bound, clone_bound):					
 					if index < len(frks):
 						frks.pop(index)

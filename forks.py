@@ -109,12 +109,10 @@ def draw(canvas, count=forks_cnt):
 			fork.head_h = fork.head_rect.height
 
 			translate = (fork.x, fork.y + fork.head_rect[3])
-			# translate = (fork.x - fork.head_rect[2]/8, fork.y + fork.rect[3])
 			fork_head_rotated = pygame.transform.rotate(fork.head_image, 180)			
 			translate = (fork.head_x, fork.head_y)
 
 			canvas.blit(fork_head_rotated, translate)
-			# pygame.draw.rect(canvas, GREEN, (fork.head_rect.x, fork.head_rect.y, fork.head_rect.w, fork.head_rect.w))
 		if fork.edge == 'bottom':
 			fork.head_x = fork.x - fork.head_rect.width/8
 			fork.head_y = fork.y + fork.rect.height

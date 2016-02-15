@@ -38,22 +38,8 @@ game_speed = 75
 
 fork_count = 6
 
-# velocity
-vx = 0
-vy = 0
-
-# acceleration
-ax = 0
-ay = 0
-
-gravity = 0.7
-v_cap = 7.5
-v_vel = 1.5
-
 # flying up?
 flying_up = False
-
-# score = 0
 
 common_bg_speed = 1
 cloud_bg_move_speed = 2

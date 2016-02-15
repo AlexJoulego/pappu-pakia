@@ -43,6 +43,7 @@ class Pakia(pygame.sprite.Sprite):
 		# Cheating on a bit with the physics
 		# can't have the same gravity for pappu and pakias
 		self.gravity = 0.3
+		self.has_stuck = False
 
 	def draw(self, canvas):
 		canvas.blit(self.img[self.type], (self.x, self.y))
@@ -90,7 +91,7 @@ def reflow(canvas):
 	cur_pakia.y += cur_pakia.vy
 
 	# Reset positions
-	if (cur_pakia.x + cur_pakia.w < 0):
+	if (cur_pakia.x + cur_pakia.w < 0 or cur_pakia.y > canvas.get_rect().width):
 		cur_pakia.generateRandomPos(canvas)
 		cur_pakia.generateRandomVelocity()
 		cur_pakia = False
@@ -114,7 +115,24 @@ def checkCollision(sprite):
 		pakia_bounds = cur_pakia.getBounds()
 
 		if slightly_intersect(sprite_bounds, pakia_bounds):
-			return True
+			# Depends upon the pakia's type
+			if cur_pakia.type == 'angry':
+				# kill
+				return True
+			elif cur_pakia.type == 'sad':
+				# pull
+				if cur_pakia.has_stuck:
+					sprite.vy += 20
+					cur_pakia.y += 20
+					cur_pakia.vx = 0
+				cur_pakia.has_stuck = True
+			elif cur_pakia.type == 'happy':
+				# push
+				if cur_pakia.vy < 0:
+					sprite.vy -= 10
+				else:
+					sprite.vy += 10
+
 	return False
 
 def resetPakias():

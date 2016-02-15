@@ -116,13 +116,11 @@ def create(cnt=count):
 		collec.h = 30
 
 		collec.type = types[random.randint(0, len(types)-1)]
-		print(collec.type)
 
 		# Choose subtypes if any
 		st = sub_types[collec.type]
 		if len(st) > 0:
 			collec.sub_type = st[random.randint(0, len(sub_types)-1)]
-			print('subtype: ', collec.sub_type)
 
 		collecs.append(collec)
 		collecs_lst.append(collec)
@@ -151,18 +149,14 @@ def checkCollision(sprite):
 		# Determine the type and perform action accordingly
 		if collec.type == 'coin':
 			sprite.score += collec.sub_type
-			print('score + ', collec.sub_type)			
 		elif collec.type == 'invincible':
 			sprite.invincible = True
 			t = Timer(5.0, sprite.undoInvincible)
 			t.start()
 		elif collec.type == 'clone':
 			sprite.createClones(3)
-		print(sprite.score)
 		
 		shift = collecs.pop(0)
-
-		print('caught a collectible')
 
 def reset():
 	global collecs

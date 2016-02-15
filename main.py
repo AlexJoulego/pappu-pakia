@@ -130,13 +130,13 @@ while True:
 			if event.key == K_UP:
 				if game_over:
 					game_over = False
-				ay = -v_vel
+				pappu.ay = -pappu.v_vel
 				flying_up = True
 			if event.key == K_DOWN:
-				ay = 0.4
+				pappu.ay = 0.4
 		if event.type == KEYUP:
-			ax = 0
-			ay = 0
+			pappu.ax = 0
+			pappu.ay = 0
 			flying_up = False
 
 		# Game play on mouse clicks, too!
@@ -158,14 +158,14 @@ while True:
 		elif event.type == MOUSEBUTTONDOWN and start_btn_click == 1:
 			if event.button == 1:
 				game_over = False
-				ay = -v_vel
+				pappu.ay = -pappu.v_vel
 				flying_up = True
 			if event.button == 3:
-				ay = 0.4
+				pappu.ay = 0.4
 
 		if event.type == MOUSEBUTTONUP:
-			ax = 0
-			ay = 0
+			pappu.ax = 0
+			pappu.ay = 0
 			flying_up = False
 
 		if event.type == MOUSEMOTION:
@@ -188,16 +188,18 @@ while True:
 	# Game over on reaching any boundary
 	if pappu.hasReachedBoundary(screen):
 		collided = True
-		print('reached boundaries...')
 	
 	if started and not game_over:
 		# Velocity
-		if (vy < v_cap and ay + gravity > 0) or (vy > -v_cap and ay + gravity < 0):
-			vy += ay
-			vy += gravity
+		if (pappu.vy < pappu.v_cap and pappu.ay + pappu.gravity > 0) or (pappu.vy > -pappu.v_cap and pappu.ay + pappu.gravity < 0):
+			pappu.vy += pappu.ay
+			pappu.vy += pappu.gravity
 
-		pappu.x += vx
-		pappu.y += vy
+		pappu.x += pappu.vx
+		pappu.y += pappu.vy
+
+		if pappu.vy > pappu.v_cap:
+			pappu.vy = pappu.v_cap
 
 
 	# --- Draw animated BACKGROUND
@@ -270,10 +272,8 @@ while True:
 		if not pappu.invincible:
 			if forks.checkCollision(pappu):
 				collided = True
-				print('hit a fork!')
 			if branches.checkCollision(pappu):
 				collided = True
-				print('hit a branch!')
 
 		# Send over pakias
 		if pappu.score > 199:
@@ -281,7 +281,6 @@ while True:
 		if not pappu.invincible:
 			if pakia.checkCollision(pappu):
 				collided = True
-				print('hit a pakia!')
 
 		# Draw collectibles
 		collectibles.draw(screen)
@@ -297,11 +296,10 @@ while True:
 	if started and not game_over:
 		pappu.draw(screen)
 	elif started and game_over:
-		pappu.flying_up = True
+		flying_up = True
 		pappu.draw(screen)
 	else:
 		pappu.drawStatic(screen)
-	
 	
 
 	screen.blit(log, (log_x, SCREEN_HEIGHT - 164))
