@@ -54,7 +54,7 @@ opacity = 0
 
 # Music
 pygame.mixer.music.load('pappu-pakia2.3.ogg')
-pygame.mixer.music.set_volume(0.05)
+pygame.mixer.music.set_volume(0.25)
 pygame.mixer.music.play(-1)
 
 # Used to manage how fast the screen updates
@@ -278,7 +278,7 @@ while True:
 		# Send over pakias
 		if pappu.score > 199:
 			pakia.render(screen, pappu.score)
-		# if not pappu.invincible:
+		if not pappu.invincible:
 			if pakia.checkCollision(pappu):
 				collided = True
 				print('hit a pakia!')

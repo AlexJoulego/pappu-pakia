@@ -22,6 +22,9 @@ class Collectible(object):
 		self.type = 'clone'
 		self.sub_type = 50
 
+		self.sound = load_sound('ting.ogg')
+		self.sound.set_volume(0.35)
+
 		self.clone_img = pygame.image.load('berries.png').convert_alpha()
 		self.invincible_img = pygame.image.load('apple.png').convert_alpha()
 		self.coin_img = pygame.image.load('coins.png').convert_alpha()
@@ -143,6 +146,7 @@ def checkCollision(sprite):
 
 	if intersect(sprite_bounds, collec_bounds):
 		# Pappu collected!
+		collec.sound.play()
 
 		# Determine the type and perform action accordingly
 		if collec.type == 'coin':
