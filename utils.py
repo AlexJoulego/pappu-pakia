@@ -1,8 +1,10 @@
 import pygame
+import os
 
 def load_image(name):
+	fullname = os.path.join('data', name)
 	try:
-		image = pygame.image.load(name)
+		image = pygame.image.load(fullname)
 	except pygame.error as message:
 		print('Cannot load image:', name)
 		raise SystemExit(message)
@@ -15,6 +17,7 @@ def load_sound(name):
 			pass
 	if not pygame.mixer:
 		return NoneSound()
+	fullname = os.path.join('data', name)
 	try:
 		sound = pygame.mixer.Sound(name)
 	except pygame.error as message:

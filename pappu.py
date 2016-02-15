@@ -44,7 +44,7 @@ class Pappu(pygame.sprite.Sprite):
 		self.change_per_frame = 1
 		self.rotate_angle = 0
 
-		self.sound = load_sound('flap.ogg')
+		self.sound = load_sound('data/flap.ogg')
 		self.sound.set_volume(0.2)
 		
 

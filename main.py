@@ -5,6 +5,11 @@ from pappu import Pappu
 from configs import *
 from utils import *
 
+if not pygame.font:
+	print("Warning, fonts disabled")
+if not pygame.mixer:
+	print("Warning, sound disabled")
+
 pygame.init()
 
 # Set the width and height of the screen
@@ -53,7 +58,7 @@ score_pos = (SCREEN_WIDTH - 100, 10)
 opacity = 0
 
 # Music
-pygame.mixer.music.load('pappu-pakia2.3.ogg')
+pygame.mixer.music.load('data/pappu-pakia2.3.ogg')
 pygame.mixer.music.set_volume(0.25)
 pygame.mixer.music.play(-1)
 

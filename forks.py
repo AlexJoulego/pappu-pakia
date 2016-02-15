@@ -95,7 +95,7 @@ def draw(canvas, count=forks_cnt):
 			forks.pop(index)
 			forks_lst.pop(index)
 		fork.x -= ground_bg_move_speed
-		index += 1	
+		index += 1
 
 		
 		canvas.blit(fork.image, (fork.x, fork.y))

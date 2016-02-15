@@ -22,12 +22,12 @@ class Collectible(object):
 		self.type = 'clone'
 		self.sub_type = 50
 
-		self.sound = load_sound('ting.ogg')
+		self.sound = load_sound('data/ting.ogg')
 		self.sound.set_volume(0.35)
 
-		self.clone_img = pygame.image.load('berries.png').convert_alpha()
-		self.invincible_img = pygame.image.load('apple.png').convert_alpha()
-		self.coin_img = pygame.image.load('coins.png').convert_alpha()
+		self.clone_img = pygame.image.load('data/berries.png').convert_alpha()
+		self.invincible_img = pygame.image.load('data/apple.png').convert_alpha()
+		self.coin_img = pygame.image.load('data/coins.png').convert_alpha()
 
 
 	def getBounds(self):

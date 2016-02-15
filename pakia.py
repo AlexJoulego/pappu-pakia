@@ -24,9 +24,9 @@ class Pakia(pygame.sprite.Sprite):
 		}
 
 		self.sounds = {
-			'angry': load_sound('jump1.ogg'),
-			'sad': load_sound('jump2.ogg'),
-			'happy': load_sound('jump3.ogg')
+			'angry': load_sound('data/jump1.ogg'),
+			'sad': load_sound('data/jump2.ogg'),
+			'happy': load_sound('data/jump3.ogg')
 		}
 
 		self.type = 'angry'
