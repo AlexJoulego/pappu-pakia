@@ -24,6 +24,7 @@ class Collectible(object):
 
 		self.clone_img = pygame.image.load('berries.png').convert_alpha()
 		self.invincible_img = pygame.image.load('apple.png').convert_alpha()
+		self.coin_img = pygame.image.load('coins.png').convert_alpha()
 
 
 	def getBounds(self):
@@ -44,8 +45,8 @@ class Collectible(object):
 			self.drawInvincible(canvas)
 
 	def drawCoin(self, canvas):
-		color = getCoinColor(self.sub_type)
-		pygame.draw.circle(canvas, color, (int(self.x), self.y), self.w//2)
+		pos = getCoinSpritePos(self.sub_type)
+		canvas.blit(self.coin_img, (self.x, self.y), (pos['x'], pos['y'], 38, 38))
 
 	def drawClone(self, canvas):
 		canvas.blit(self.clone_img, (self.x, self.y))
@@ -62,15 +63,15 @@ sub_types = {
 	'invincible': []
 }
 
-def getCoinColor(sub_type):
+def getCoinSpritePos(sub_type):
 	if sub_type == 50:
-		return YELLOW
+		return {'x': 38, 'y': 0}
 	elif sub_type == 100:
-		return BLUE
+		return {'x': 76, 'y': 0}
 	elif sub_type == 500:
-		return ORANGE
+		return {'x': 114, 'y': 0}
 	elif sub_type == 1000:
-		return PURPLE
+		return {'x': 152, 'y': 0}
 
 def getRandomPos():
 	pos = {}	
