@@ -184,7 +184,7 @@ while True:
 		start_btn_click = 0
 		pappu.x = 33
 		pappu.y = 284
-		pappu.invincible = False
+		pappu.undoInvincible()
 	# Game over on reaching any boundary
 	if pappu.hasReachedBoundary(screen):
 		collided = True
@@ -267,21 +267,21 @@ while True:
 		# Draw branches
 		branches.draw(screen)
 		# Check collisions with pappu
-		# if not pappu.invincible:
-		# 	if forks.checkCollision(pappu):
-		# 		collided = True
-		# 		print('hit a fork!')
-		# 	if branches.checkCollision(pappu):
-		# 		collided = True
-		# 		print('hit a branch!')
+		if not pappu.invincible:
+			if forks.checkCollision(pappu):
+				collided = True
+				print('hit a fork!')
+			if branches.checkCollision(pappu):
+				collided = True
+				print('hit a branch!')
 
 		# Send over pakias
 		if pappu.score > 199:
 			pakia.render(screen, pappu.score)
 		# if not pappu.invincible:
-		# 	if pakia.checkCollision(pappu):
-		# 		collided = True
-		# 		print('hit a pakia!')
+			if pakia.checkCollision(pappu):
+				collided = True
+				print('hit a pakia!')
 
 		# Draw collectibles
 		collectibles.draw(screen)
